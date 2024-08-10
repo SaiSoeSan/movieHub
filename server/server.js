@@ -43,6 +43,7 @@ const { MongoClient } = require("mongodb");
 const uri = process.env.CONNECTION_STRING
 
 const client = new MongoClient(uri);
+// console.log(client)
 
 async function run() {
   try {
