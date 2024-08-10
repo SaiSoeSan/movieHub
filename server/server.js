@@ -1,28 +1,31 @@
-// const express = require('express')
-// const app = express();
-// let path = require('path')
-// const cors = require('cors');
+const loginService = require('./LoginSignup/LoginServer')
+
+const express = require('express')
+const app = express();
+let path = require('path')
+const cors = require('cors');
+
 
 // // Server port
-// const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
 
-// const options = {
-//     origin : 'http://localhost:3000',
-//     method : 'POST,GET,DELETE,PUT',
-//     allowedHeaders : 'Content-Type'
-// };
+const options = {
+    origin : 'http://localhost:3000',
+    method : 'POST,GET,DELETE,PUT',
+    allowedHeaders : 'Content-Type'
+};
 
 // //use cors
-// app.use(cors(options));
+app.use(cors(options));
 
 
 // //get parameter from request
-// app.use(express.json())
-// app.use(express.urlencoded({extended:true}))
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 
 
 // // use static for react
-// // app.use(express.static(path.join(__dirname,"../client/build")))
+app.use(express.static(path.join(__dirname,"../client/build")))
 
 // // app.use('*',(req,res) => {
 // //     res.sendFile(path.join(__dirname,"../client/build","index.html"))
@@ -32,32 +35,41 @@
 //     res.send("hello")
 // })
 
-// app.listen(PORT,(req,res) => {
-//     console.log(`Server is running on localhost:${PORT}`)
-// })
+app.listen(PORT,(req,res) => {
+    console.log(`Server is running on localhost:${PORT}`)
+})
 
 require('dotenv').config()
-const { MongoClient } = require("mongodb");
+// const { MongoClient } = require("mongodb");
 
 // Replace the uri string with your connection string.
 const uri = process.env.CONNECTION_STRING
 
-const client = new MongoClient(uri);
+// const client = new MongoClient(uri);
 // console.log(client)
 
 async function run() {
   try {
-    const database = client.db('sample_mflix');
-    const movies = database.collection('movies');
+    // const database = client.db('sample_mflix');
+    // const movies = database.collection('movies');
 
-    // Query for a movie that has the title 'Back to the Future'
-    const query = { title: 'Back to the Future' };
-    const movie = await movies.findOne(query);
+    // // Query for a movie that has the title 'Back to the Future'
+    // const query = { title: 'Back to the Future' };
+    // const movie = await movies.findOne(query);
 
-    console.log(movie);
+    // console.log(movie);
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    //await client.close();
   }
 }
-run().catch(console.dir);
+// run().catch(console.dir);
+
+
+app.get('/login',(req, res) => {
+
+  loginService.login()
+  .then(response => {
+    res.send(response);
+  });
+})
