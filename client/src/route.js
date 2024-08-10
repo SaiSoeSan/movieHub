@@ -4,27 +4,17 @@ import {
     Route,
     Link,
   } from "react-router-dom";
-import Login from "./components/Login";
+import Login from "./LoginSignup/Login/Login";
   
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <div>
-          <h1>Hello World</h1>
-          <Link to="about">About Us</Link>
-          <Link to="/login">Login</Link>
-        </div>
-      ),
-    },
+  const router = createBrowserRouter([    
     {
       path: "about",
       element: <div>About</div>,
     },
     {
         path: "login",
-        element: <Login />,
-      },
+        element: <Login />
+    },
   ]);
 
   export default router;
