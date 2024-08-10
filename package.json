@@ -1,6 +1,25 @@
 {
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.19.2"
-  }
+    "express": "^4.19.2",
+    "mongodb": "6.8"
+  },
+  "name": "moviesystem",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaiSoeSan/movieHub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SaiSoeSan/movieHub/issues"
+  },
+  "homepage": "https://github.com/SaiSoeSan/movieHub#readme"
 }
