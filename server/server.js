@@ -5,6 +5,8 @@ const app = express();
 let path = require('path')
 const cors = require('cors');
 
+//movie schema
+//const Movie = require('./movieSchema.js')
 
 // // Server port
 const PORT = process.env.PORT || 8000;
@@ -65,6 +67,48 @@ async function run() {
 }
 // run().catch(console.dir);
 
+
+// // get all movies
+// app.get('/movies', async (req, res) => {
+//     try {
+//         const movies = await Movie.find();
+//         res.json(movies);
+//     } catch (error) {
+//         res.status(500).send(error);
+//     }
+// });
+
+// // get single movie
+// app.get('/movies/:id', async (req, res) => {
+//     try {
+//         const movie = await Movie.findById(req.params.id);
+//         res.json(movie);
+//     } catch (error) {
+//         res.status(404).send("Movie not found");
+//     }
+// });
+
+
+let sampleMovie =
+{
+    id: 1,
+    mainMovieName: 'Terminator 2',
+    subMovieName: 'Judgment Day',
+    mainCast: ['Arnold Schwarzenegger', 'Linda Hamilton', 'Edward Furlong'],
+    movieType: 'Action',
+    releaseYear: 1991,
+    times: '137 mins',
+    rating: 'R',
+    description: 'Two Terminators travel from the future to track down Sarah Connor\'s young son, John: One machine is programmed to kill him, the other to protect him.',
+    subtitles: ['English', 'Spanish (Latin America)'],
+    audio: ['English - Audio Description', 'English [Original]', 'Spanish (Latin America)'],
+    genres: ['Sci-Fi', 'Classic', 'Action & Adventure'],
+    comment: 'Violent'
+};
+
+app.get('/api/movie/detail', (req,res)=>{
+  res.json(sampleMovie);
+})
 
 app.get('/login',(req, res) => {
 

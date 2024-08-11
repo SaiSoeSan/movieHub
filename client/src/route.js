@@ -5,7 +5,8 @@ import {
     Link,
   } from "react-router-dom";
 import Login from "./LoginSignup/Login/Login";
-  
+import MovieDetail from "./Movie/Detail/Detail"
+
   const router = createBrowserRouter([    
     {
       path: "about",
@@ -15,6 +16,10 @@ import Login from "./LoginSignup/Login/Login";
         path: "login",
         element: <Login />
     },
+    {
+      path:"detail",
+      element:<MovieDetail />
+    }
   ]);
 
   export default router;
