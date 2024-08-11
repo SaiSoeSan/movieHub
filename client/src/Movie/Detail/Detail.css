@@ -1,0 +1,17 @@
+.columntitle{
+    font-weight: bold;
+}
+.flexcolumn{
+    display: flex;
+    flex-direction: column;
+}
+.gridcolumn{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.rightborder{
+    /* display: inline-block; */
+    display: flex;
+    border-right: 1px solid lightslategray;
+    height: 18px;
+}

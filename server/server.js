@@ -12,9 +12,9 @@ const cors = require('cors');
 const PORT = process.env.PORT || 8000;
 
 const options = {
-    origin : 'http://localhost:3000',
-    method : 'POST,GET,DELETE,PUT',
-    allowedHeaders : 'Content-Type'
+  origin: 'http://localhost:3000',
+  method: 'POST,GET,DELETE,PUT',
+  allowedHeaders: 'Content-Type'
 };
 
 // //use cors
@@ -23,11 +23,11 @@ app.use(cors(options));
 
 // //get parameter from request
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 
 
 // // use static for react
-app.use(express.static(path.join(__dirname,"../client/build")))
+app.use(express.static(path.join(__dirname, "../client/build")))
 
 // // app.use('*',(req,res) => {
 // //     res.sendFile(path.join(__dirname,"../client/build","index.html"))
@@ -37,8 +37,8 @@ app.use(express.static(path.join(__dirname,"../client/build")))
 //     res.send("hello")
 // })
 
-app.listen(PORT,(req,res) => {
-    console.log(`Server is running on localhost:${PORT}`)
+app.listen(PORT, (req, res) => {
+  console.log(`Server is running on localhost:${PORT}`)
 })
 
 require('dotenv').config()
@@ -91,29 +91,41 @@ async function run() {
 
 let sampleMovie =
 {
-    id: 1,
-    mainMovieName: 'Terminator 2',
-    subMovieName: 'Judgment Day',
-    mainCast: ['Arnold Schwarzenegger', 'Linda Hamilton', 'Edward Furlong'],
-    movieType: 'Action',
-    releaseYear: 1991,
-    times: '137 mins',
-    rating: 'R',
-    description: 'Two Terminators travel from the future to track down Sarah Connor\'s young son, John: One machine is programmed to kill him, the other to protect him.',
-    subtitles: ['English', 'Spanish (Latin America)'],
-    audio: ['English - Audio Description', 'English [Original]', 'Spanish (Latin America)'],
-    genres: ['Sci-Fi', 'Classic', 'Action & Adventure'],
-    comment: 'Violent'
+  id: 1,
+  mainMovieName: 'Terminator 2',
+  subMovieName: 'Judgment Day',
+  mainCast: ['Arnold Schwarzenegger', 'Linda Hamilton', 'Edward Furlong'],
+  movieType: 'Action',
+  releaseYear: 1991,
+  times: '137 mins',
+  rating: 'R',
+  description: 'Two Terminators travel from the future to track down Sarah Connor\'s young son, John: One machine is programmed to kill him, the other to protect him.',
+  subtitles: ['English', 'Spanish (Latin America)'],
+  audio: ['English - Audio Description', 'English [Original]', 'Spanish (Latin America)'],
+  genres: ['Sci-Fi', 'Classic', 'Action & Adventure'],
+  comment: ['Violent'],
+  cast: [
+    'Arnold Schwarzenegger',
+    'Linda Hamilton',
+    'Edward Furlong',
+    'Robert Patrick',
+    'Joe Morton',
+    'Earl Boen',
+    'S. Epatha Merkerson',
+    'Danny Cooksey',
+    'Castulo Guerra'
+  ]
+
 };
 
-app.get('/api/movie/detail', (req,res)=>{
+app.get('/api/movie/detail', (req, res) => {
   res.json(sampleMovie);
 })
 
-app.get('/login',(req, res) => {
+app.get('/login', (req, res) => {
 
   loginService.login()
-  .then(response => {
-    res.send(response);
-  });
+    .then(response => {
+      res.send(response);
+    });
 })

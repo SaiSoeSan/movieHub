@@ -1,10 +1,23 @@
 //import { React, useEffect, useState } from 'react'
 //import {useNavigate} from 'react-router-dom';
+import './Detail.css'
+import backgroundImage from '../Detail/T2.jpg';
 import React, {useState,useEffect} from 'react';
 
 export default function Detail(){
 
-    const [movie, setMovie] = useState({});
+    const [movie, setMovie] = useState({    mainMovieName: '',
+    subMovieName: '',
+    releaseYear: '',
+    rating: '',
+    times: '',
+    genres: [],
+    description: '',
+    mainCast: [],
+    comment: [],
+    audio: [],
+    subtitles: [],
+    cast: []});
 
     useEffect(()=>{
         try {
@@ -22,34 +35,59 @@ export default function Detail(){
 
 
     return (
-        <>
-        <div style={{display:'grid', gridTemplateColumns:'2fr 3fr'}}>
-            <div style={{padding:'50px'}}>
-                <div><h1 style={{display:'inline-block', borderBottom:'2px solid black'}}>{movie.mainMovieName}</h1></div>
-                <div><h3>{movie.subMovieName}</h3></div>
-                <div style={{marginTop:'50px', display:'flex', gap:'10px', fontSize:'22px'}}>
-                    <label>{movie.mainMovieName}:</label>
-                    <label>{movie.subMovieName}</label>
+        <div style={{backgroundColor:'black'}}>
+            <div style={{display:'grid', gridTemplateColumns:'2fr 3fr', backgroundImage: `url(${backgroundImage})`}}>
+                <div style={{marginTop:'80px', color:'white', padding:'50px'}}>
+                    <div><h1 style={{display:'inline-block', borderBottom:'2px solid white'}}>{movie.mainMovieName}</h1></div>
+                    <div><h3>{movie.subMovieName}</h3></div>
+                    <div style={{marginTop:'50px', display:'flex', gap:'10px', fontSize:'22px'}}>
+                        <label>{movie.mainMovieName}:</label>
+                        <label>{movie.subMovieName}</label>
+                    </div>
+                    <div style={{display:'flex', gap:'10px', alignItems:'center'}}>
+                        <div>{movie.releaseYear}</div>
+                        <div className='rightborder'></div>
+                        <div style={{display:'flex', border:'1px solid black', width:'20px', height:'20px', justifyContent:'center', alignItems:'center'}}>{movie.rating}</div>
+                        <div className='rightborder'></div>
+                        <div>{movie.times}</div>
+                        <div className='rightborder'></div>
+                        <div>{movie.genres[0]}</div>
+                    </div>
+                    <div style={{marginTop:'20px'}}>{movie.description}</div>
+                    <div style={{marginTop:'20px', display:'flex', gap:'5px'}}>
+                        <div>Starring:</div>
+                        <div>{movie.mainCast.join(', ')}</div>
+                    </div>
                 </div>
-                <div style={{display:'flex', gap:'10px'}}>
-                    <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>{movie.releaseYear}</div>
-                    <div style={{display:'inline-block', borderRight:'1px solid black'}}></div>
-                    <div style={{display:'flex', border:'1px solid black', width:'20px', height:'20px', justifyContent:'center', alignItems:'center'}}>{movie.rating}</div>
-                    <div style={{display:'inline-block', borderRight:'1px solid black'}}></div>
-                    <div>{movie.times}</div>
-                    <div style={{display:'inline-block', borderRight:'1px solid black'}}></div>
-                    <div>{movie.genres[0]}</div>
+                <div>{/* 2nd col */}</div>
+            </div>
+            <div style={{color:'white', padding:'50px'}}>
+                <div style={{fontSize:'26px', marginTop:'30px', marginBottom:'10px'}}>More Details</div>
+                <div className='gridcolumn'>
+                    <div className='flexcolumn'>
+                        <div className='columntitle'>Genres</div>
+                        <div>{movie.genres.join(' Movies, ')} Movies</div>
+                    </div>
+                    <div className='flexcolumn'>
+                        <div className='columntitle'>This movie is...</div>
+                        <div>{movie.comment.join(', ')}</div>
+                    </div>
+                    <div className='flexcolumn'>
+                        <div className='columntitle'>Audio</div>
+                        <div>{movie.audio.join(', ')}</div>
+                    </div>
+                    <div className='flexcolumn'>
+                        <div className='columntitle'>Subtitles</div>
+                        <div>{movie.subtitles.join(', ')}</div>
+                    </div>
                 </div>
-                <div style={{marginTop:'20px'}}>{movie.description}</div>
-                <div style={{marginTop:'20px', display:'flex', gap:'5px'}}>
-                    <div>Starring:</div>
-                    <div>{movie.mainCast.join(', ')}</div>
-                    {/* {movie.mainCast.map((actor)=>(<div>{actor} ,</div>))} */}
+                <div className='columntitle' style={{marginTop:'20px'}}>Cast</div>
+                <div className='gridcolumn'>
+                    {movie.cast.map((actor)=>(<div>{actor}</div>))}
                 </div>
             </div>
-            <div>{/* 2nd col */}</div>
+
+
         </div>
-        
-        </>
     );
 }
