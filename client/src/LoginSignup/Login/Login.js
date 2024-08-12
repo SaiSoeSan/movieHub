@@ -1,7 +1,7 @@
 import { React, useRef } from 'react'
 import './Login.css'
 import * as authService from '../AuthService'
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 export default function Login(){
     const navigate = useNavigate();
@@ -9,6 +9,7 @@ export default function Login(){
 
     const userId = useRef();
     const password = useRef();
+    
     const signInClicked = async () => {
 
         let result = await authService.login(userId.current.value, password.current.value);
@@ -38,7 +39,7 @@ export default function Login(){
                     <input type="button" value="Sign In" onClick={signInClicked}></input>
                 </div>
                 <div>
-                    New to page? Sign up now.
+                    New to page? <Link to={'/signup'}>Sign up</Link> now.
                 </div>
             </div>            
         </>
