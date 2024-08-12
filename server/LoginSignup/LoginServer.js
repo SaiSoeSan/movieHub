@@ -1,21 +1,23 @@
 const dbProvider = require('../DbProvider')
 
-async function login(userId, password){
+async function login(email, password){
     try{
-
-
-        const query = { mainMovieName: 'Terminator 2' };
-    let data = await dbProvider.dbChain().defineTable('test_collection').getMultiData(query);
-    console.log(data)
-
-
-        return {
-            status: true,
-            data: {
-                userId: userId,
-                userName: userId
-            }
-        };
+        const query = { email: email, password: password };
+        let user = await dbProvider.dbChain().defineTable('user').getSingleData(query);
+        if(user != undefined){
+            return {
+                status: true,
+                data: {
+                    email: user.email,
+                    name: user.name                    
+                }
+            };
+        }else{
+            return {
+                status: false,
+                message: 'Invalid email or password'
+            };
+        }
 
     }catch(err) {
         console.error(err);
