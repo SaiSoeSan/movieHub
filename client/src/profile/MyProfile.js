@@ -54,7 +54,7 @@ function MyProfile() {
                 <hr />
                 <div className='row py-1'>
                     <div className='col text-center'>
-                        Username
+                        Email
                     </div>
                     <div className='col text-center'>
                         <div>
