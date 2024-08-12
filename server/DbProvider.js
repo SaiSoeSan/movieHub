@@ -13,10 +13,10 @@ function dbChain(){
             const data = await tbl.findOne(query)
             return data;
         },
-        // getMultiData: async (query) => {
-        //     const data = await tbl.find({})
-        //     return data;
-        // }
+        getMultiData: async (query) => {
+            const data = await tbl.find(query)
+            return data;
+        }
     }
 }
 

@@ -14,12 +14,11 @@ export const loggedInUserInfo = {
     name: ''
 }
 
-export async function login(userId, password){
-    let result = await httpService.post('login',{userId:userId, password: password});
-    if(result.status){
-        loggedInUserInfo.email = 'dummy@email.com';
-        loggedInUserInfo.name = 'Dummy';
-        
+export async function login(email, password){
+    let result = await httpService.post('login',{email:email, password: password});
+    if(result.data.status){
+        loggedInUserInfo.email = result.data.email;
+        loggedInUserInfo.name = result.data.name;        
         setLogin();
     }
     return result;
