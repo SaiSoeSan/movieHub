@@ -9,9 +9,17 @@ export function isLoggedIn(){
     }
 }
 
+export const loggedInUserInfo = {
+    email: '',
+    name: ''
+}
+
 export async function login(userId, password){
     let result = await httpService.post('login',{userId:userId, password: password});
     if(result.status){
+        loggedInUserInfo.email = 'dummy@email.com';
+        loggedInUserInfo.name = 'Dummy';
+        
         setLogin();
     }
     return result;
