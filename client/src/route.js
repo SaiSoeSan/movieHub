@@ -5,8 +5,10 @@ import {
     Link,
   } from "react-router-dom";
 import Login from "./LoginSignup/Login/Login";
-  
-  const router = createBrowserRouter([    
+import App from "./App";
+import * as authService from '../src/LoginSignup/AuthService'
+
+  const router = createBrowserRouter([
     {
       path: "about",
       element: <div>About</div>,
@@ -15,6 +17,11 @@ import Login from "./LoginSignup/Login/Login";
         path: "login",
         element: <Login />
     },
+    {
+      path: "/",
+      loader: authService.isLoggedIn,
+      element: <App />
+  },
   ]);
 
   export default router;
