@@ -5,9 +5,62 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Roboto", sans-serif;
+  background-color: #181818;
+    box-sizing: border-box;
+    color: #fff;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.login-btn{
+    border: 1px solid #888;
+    border-radius: 2px;
+    color: #fff;
+    line-height: 15px;
+    padding: 9px 24px;
+    white-space: nowrap;
+}
+.login-btn:hover{
+  color: #fff;
+  border: 1px solid #888;
+  border-radius: 2px;
+}
+.movieHead{
+  font-size: 3.25rem;
+}
+.mainHome{
+  background-color: mainHome;
+}
+.movieHomeDesc{
+  margin-top: .1vw;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, .6);
+  transition-delay: 0s;
+  transition-duration: .75s;
+  width: 100%;
+  font-size: 19px;
+}
+.slick-slider{
+  width: 98% !important;
+  margin: auto;
+}
+.slick-slider img{
+  width: 100%;
+  padding: 0px 10px;
+}
+.movieTitle{
+  font-size: 17px;
+  margin-top: 3px;
+}
+.btn:hover{
+  background: none !important ;
+}
+
+@media (min-width: 768px) { 
+  .searchForm{
+    width: 40%;
+  }
+ }
