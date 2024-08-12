@@ -19,6 +19,7 @@ export async function login(userId, password){
     if(result.status){
         loggedInUserInfo.email = 'dummy@email.com';
         loggedInUserInfo.name = 'Dummy';
+        
         setLogin();
     }
     return result;
