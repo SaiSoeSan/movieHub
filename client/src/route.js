@@ -18,8 +18,8 @@ import Home from "./components/Home";
     },
     {
         path: "login",
-        element: <Login />,
-      },
+        element: <Login />
+    },
   ]);
 
   export default router;
