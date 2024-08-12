@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const movieSchema = new Schema({
     mainMovieName: String,
     subMovieName: String,
-    cast: [String],
+    castMain: [String],
     movieType: String,
     releaseYear: Number,
     times: String,
@@ -13,7 +13,8 @@ const movieSchema = new Schema({
     subtitles: [String],
     audio: [String],
     genres: [String],
-    comment: String
+    comment: String,
+    cast:[String]
 });
 
 const Movie = mongoose.model('Movie', movieSchema);

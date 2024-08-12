@@ -15,3 +15,26 @@
     border-right: 1px solid lightslategray;
     height: 18px;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap'); /* 这里用 Roboto 粗体字体模拟 */
+
+.terminator-title {
+    font-family: 'Roboto', sans-serif; /* 使用粗体字体 */
+    color: white; /* 文字颜色为白色 */
+    font-size: 48px; /* 文字大小，可调整 */
+    text-align: center; /* 居中对齐 */
+    text-transform: uppercase; /* 文字大写 */
+    text-shadow: /* 为文字添加多层阴影 */
+        3px 3px 0 #000, /* 黑色阴影，稍大，偏移更明显 */
+        -1px -1px 0 #000, /* 黑色阴影，用于边缘锐化 */
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000,
+        2px 2px 0px red; /* 红色阴影 */
+}
+
+.subtitle {
+    color: white; /* 字体颜色为白色 */
+    font-size: 24px; /* 字体大小 */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* 轻微文字阴影 */
+}
