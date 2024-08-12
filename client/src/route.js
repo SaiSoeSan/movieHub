@@ -4,9 +4,14 @@ import {
     Route,
     Link,
   } from "react-router-dom";
-import Login from "./LoginSignup/Login/Login";
+import Login from "./components/Login";
+import Home from "./components/Home";
   
-  const router = createBrowserRouter([    
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />
+    },
     {
       path: "about",
       element: <div>About</div>,
