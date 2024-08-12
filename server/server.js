@@ -66,9 +66,8 @@ async function run() {
 // run().catch(console.dir);
 
 
-app.get('/login',(req, res) => {
-
-  loginService.login()
+app.post('/login',(req, res) => {
+  loginService.login(req.body.userId, req.body.password)
   .then(response => {
     res.send(response);
   });

@@ -1,13 +1,12 @@
 
-async function login(){
+async function login(userId, password){
     
     try{
-        console.log('login func here')
         return {
             status: true,
             data: {
-                userId: 'USER_ID',
-                userName: 'USER_NAME'
+                userId: userId,
+                userName: userId
             }
         };
 

@@ -1,12 +1,17 @@
-import { React } from 'react'
+import { React, useRef } from 'react'
 import './Login.css'
 import * as authService from '../AuthService'
 import {useNavigate} from 'react-router-dom';
 
 export default function Login(){
     const navigate = useNavigate();
+
+
+    const userId = useRef();
+    const password = useRef();
     const signInClicked = async () => {
-        let result = await authService.login();
+
+        let result = await authService.login(userId.current.value, password.current.value);
         if(result.status){
           navigate('/about');
         }else{
@@ -23,11 +28,11 @@ export default function Login(){
                 <div>Sign In</div>
                 <div>
                     User ID
-                    <input type="text"></input>
+                    <input type="text" ref={userId}></input>
                 </div>
                 <div>
                     Password
-                    <input type="text"></input>
+                    <input type="text" ref={password}></input>
                 </div>
                 <div>
                     <input type="button" value="Sign In" onClick={signInClicked}></input>

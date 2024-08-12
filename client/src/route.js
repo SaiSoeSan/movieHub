@@ -10,6 +10,7 @@ import Home from "./components/Home";
   const router = createBrowserRouter([
     {
       path: "/",
+      loader: authService.isLoggedIn,
       element: <Home />
     },
     {
@@ -19,7 +20,7 @@ import Home from "./components/Home";
     {
         path: "login",
         element: <Login />
-    },
+    }
   ]);
 
   export default router;
