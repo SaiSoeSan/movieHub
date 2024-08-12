@@ -13,7 +13,7 @@ export default function Login(){
 
         let result = await authService.login(userId.current.value, password.current.value);
         if(result.status){
-          navigate('/about');
+          navigate('/');
         }else{
           console.error('Login fail', result.message);
         }

@@ -4,8 +4,9 @@ import {
     Route,
     Link,
   } from "react-router-dom";
-import Login from "./components/Login";
 import Home from "./components/Home";
+import * as authService from '../src/LoginSignup/AuthService'
+import Login from './LoginSignup/Login/Login'
   
   const router = createBrowserRouter([
     {
