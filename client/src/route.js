@@ -4,11 +4,15 @@ import {
     Route,
     Link,
   } from "react-router-dom";
-import Login from "./LoginSignup/Login/Login";
-import App from "./App";
-import * as authService from '../src/LoginSignup/AuthService'
-
+import Login from "./components/Login";
+import Home from "./components/Home";
+  
   const router = createBrowserRouter([
+    {
+      path: "/",
+      loader: authService.isLoggedIn,
+      element: <Home />
+    },
     {
       path: "about",
       element: <div>About</div>,
@@ -16,12 +20,7 @@ import * as authService from '../src/LoginSignup/AuthService'
     {
         path: "login",
         element: <Login />
-    },
-    {
-      path: "/",
-      loader: authService.isLoggedIn,
-      element: <App />
-  },
+    }
   ]);
 
   export default router;
