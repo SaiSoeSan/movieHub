@@ -1,10 +1,13 @@
 import {
-    createBrowserRouter,
-    RouterProvider,
-    Route,
-    Link,
-  } from "react-router-dom";
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+} from "react-router-dom";
 import Home from "./components/Home";
+import * as authService from "../src/LoginSignup/AuthService";
+import Layout from "./components/Layout";
+
 import * as authService from '../src/LoginSignup/AuthService'
 import Login from './LoginSignup/Login/Login'
 import MyProfile from "./profile/MyProfile";
@@ -14,11 +17,17 @@ import Signup from "./LoginSignup/Signup/Signup";
     {
       path: "/",
       loader: authService.isLoggedIn,
-      element: <Home />
-    },
-    {
-      path: "about",
-      element: <div>About</div>,
+       element: <Layout />,
+      children: [
+      {
+        path: "/about",
+        element: <div>About</div>,
+      },
+      {
+        path: "/",
+        element: <Home />,
+      },
+    ],
     },
     {
         path: "login",
@@ -34,4 +43,4 @@ import Signup from "./LoginSignup/Signup/Signup";
   }
   ]);
 
-  export default router;
+export default router;
