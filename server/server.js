@@ -1,7 +1,4 @@
 const loginService = require('./LoginSignup/LoginServer')
-const { MongoClient } = require('mongodb');
-const url = 'mongodb://localhost:27017'; // Replace with your MongoDB URL
-const client = new MongoClient(url);
 
 const express = require('express')
 const app = express();
