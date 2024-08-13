@@ -1,6 +1,7 @@
 const loginService = require('./LoginSignup/LoginServer')
 const profileService = require('./Profile/Profile')
-const genresService = require('./Movie/GenreServer');
+const genres = require('./Movie/Genres')
+const movie = require('./Movie/Movie')
 
 const express = require('express')
 const app = express();
@@ -35,18 +36,20 @@ app.listen(PORT, (req, res) => {
 })
 
 const { log } = require('console');
-const { MongoClient,ObjectId } = require("mongodb");
-const databaseUrl = "mongodb://127.0.0.1:27017";
-const client = new MongoClient(databaseUrl);
-
-const database = client.db('mflix');
-
 
 app.get('/api/genres', async (req,res) => {
-  genresService.genres()
-  .then(response => {
-    res.send(response);
-  });
+    // try {
+    //     const genres = database.collection('genres');
+    //     const cursor = await genres.find(); 
+    //     const allGenres = await cursor.toArray();
+    //     res.json(allGenres)
+    // } catch (error) {
+        
+    // }
+    genres.getAllGenres()
+    .then(response => {
+      res.send(response)
+    });
 })
 
 app.post('/login', (req, res) => {
@@ -57,58 +60,73 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/api/allmovies', async (req,res)=>{
-  const database = client.db('mflix');
-  const movies = database.collection('movies');
-  const total = await movies.countDocuments(); // 获取总电影数
+  // const database = client.db('mflix');
+  // const movies = database.collection('movies');
+  // const total = await movies.countDocuments(); // 获取总电影数
 
-  res.json(total);
-  //res.json(allMovies);
+  // res.json(total);
+
+  
+  movie.getMoviesCount()
+    .then(response => {
+      res.json(response)
+    });
 })
 
 app.get('/api/movies', async (req, res) => {
-  const page = parseInt(req.query.page) || 0;
-  const pageSize = parseInt(req.query.pageSize) || 4; 
+  // const page = parseInt(req.query.page) || 0;
+  // const pageSize = parseInt(req.query.pageSize) || 4; 
 
-  try {
-    const database = client.db('mflix');
-    //console.log(database);
-    const movies = database.collection('movies');
-    //const movies = db.collection('movies');
+  // try {
+  //   const database = client.db('mflix');
+  //   //console.log(database);
+  //   const movies = database.collection('movies');
+  //   //const movies = db.collection('movies');
 
-    const cursor = movies.find({})
-                         .skip(page * pageSize)
-                         .limit(pageSize);
-    const allMovies = await cursor.toArray();
-    //console.log(allMovies);
-    res.json(allMovies);
-  } catch (error) {
-    console.error("Failed to fetch movies", error);
-    res.status(500).send("Error fetching movies");
-  }
+  //   const cursor = movies.find({})
+  //                        .skip(page * pageSize)
+  //                        .limit(pageSize);
+  //   const allMovies = await cursor.toArray();
+  //   //console.log(allMovies);
+  //   res.json(allMovies);
+  // } catch (error) {
+  //   console.error("Failed to fetch movies", error);
+  //   res.status(500).send("Error fetching movies");
+  // }
+  movie.getAllMovies()
+    .then(response => {
+      res.send(response)
+    });
 });
 
 app.get('/api/movie/detail/:_id', async (req, res) => {
   const { _id } = req.params;
-  console.log("fetch detail");
-  console.log(_id);
+  // console.log("fetch detail");
+  // console.log(_id);
 
-  try {
-    const database = client.db('mflix');
-    //console.log(database);
-    const movies = database.collection('movies');
-    //const movies = db.collection('movies');
-    const query = { _id: new ObjectId(_id) };
-    const movie = await movies.findOne(query);
-    console.log(movie);
-    // const query = { _id: new ObjectId(queryID) };
-    // const movie = await movies.findOne(query);
-    // const allMovies = await cursor.toArray();
-    // console.log(allMovies);
-    res.json(movie);
-  } catch (error) {
-    console.error("Failed to fetch movies", error);
-    res.status(500).send("Error fetching movies");
-  }
+  // try {
+  //   const database = client.db('mflix');
+  //   //console.log(database);
+  //   const movies = database.collection('movies');
+  //   //const movies = db.collection('movies');
+  //   const query = { _id: new ObjectId(_id) };
+  //   const movie = await movies.findOne(query);
+  //   console.log(movie);
+  //   // const query = { _id: new ObjectId(queryID) };
+  //   // const movie = await movies.findOne(query);
+  //   // const allMovies = await cursor.toArray();
+  //   // console.log(allMovies);
+  //   res.json(movie);
+  // } catch (error) {
+  //   console.error("Failed to fetch movies", error);
+  //   res.status(500).send("Error fetching movies");
+  // }
+
+  movie.getMovieDetails({ _id: new ObjectId(_id) })
+  .then(response => {
+    res.send(response)
+  });
+
 });
 //profile
 app.post('/profile', (req, res) => {

@@ -1,5 +1,5 @@
-import {React} from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import {React, useEffect} from 'react'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import Nav from './Nav'
 
 console.log("layout")

@@ -2,11 +2,7 @@ import * as httpService from './HttpService'
 
 export function isLoggedIn(){   
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if(isLoggedIn == null || isLoggedIn == undefined){
-        window.location.replace('/login')
-    }else{
-        return null;
-    }
+    return isLoggedIn;
 }
 
 export const loggedInUserInfo = {   
