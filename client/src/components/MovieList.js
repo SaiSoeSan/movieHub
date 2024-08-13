@@ -142,12 +142,6 @@ const MovieList = (props) => {
     <div>
       <h5 className="mt-4 mb-4">{props.title ? props.title : 'Exciting Movies'}</h5>
       <Slider {...settings}>
-        {/* {movies.map(movie => (
-            <div key={movie._id}>
-              <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName} />
-              <h6 className="movieTitle text-center">{movie.mainMovieName}</h6>
-            </div>
-          ))} */}
         {movies.map(movie => (
           <MovieItem key={movie._id} movie={movie} />
         ))}

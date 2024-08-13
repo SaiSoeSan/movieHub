@@ -1,7 +1,6 @@
 require('dotenv').config()
 const { query } = require('express');
 const { MongoClient, Collection } = require('mongodb');
-let databaseUrl = process.env.DB_URL;
 const client = new MongoClient(process.env.DB_URL)
 const database = client.db(process.env.DB_NAME);
 console.log('db provider here ------------')
@@ -18,7 +17,7 @@ function dbChain(){
         },
         getMultiData: async (query) => {
             const data = await tbl.find(query)
-            return data;
+            return data.toArray();
         },
         updateData : async(query,newValues)=>{
             const data = await tbl.updateOne(query,newValues)

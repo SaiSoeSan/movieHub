@@ -1,5 +1,6 @@
 const loginService = require('./LoginSignup/LoginServer')
 const profileService = require('./Profile/Profile')
+const genresService = require('./Movie/GenreServer');
 
 const express = require('express')
 const app = express();
@@ -26,27 +27,12 @@ app.use(express.urlencoded({ extended: true }))
 
 
 
-// // use static for react
+// use static for react
 app.use(express.static(path.join(__dirname, "../client/build")))
-
-
-// // // app.use('*',(req,res) => {
-// // //     res.sendFile(path.join(__dirname,"../client/build","index.html"))
-// // // })
-
-// // app.get('/',(req,res) => {
-// //     res.send("hello")
-// // })
 
 app.listen(PORT, (req, res) => {
   console.log(`Server is running on localhost:${PORT}`)
 })
-
-// require('dotenv').config()
-// const { MongoClient } = require("mongodb");
-
-// // Replace the uri string with your connection string.
-// const uri = process.env.CONNECTION_STRING
 
 const { log } = require('console');
 const { MongoClient,ObjectId } = require("mongodb");
@@ -55,24 +41,14 @@ const client = new MongoClient(databaseUrl);
 
 const database = client.db('mflix');
 
-// app.post('/login',(req, res) => {
-//   loginService.login(req.body.userId, req.body.password)
-//   .then(response => {
-//     res.send(response);
-//   });
-// })
-
 
 app.get('/api/genres', async (req,res) => {
-    try {
-        const genres = database.collection('genres');
-        const cursor = await genres.find(); 
-        const allGenres = await cursor.toArray();
-        res.json(allGenres)
-    } catch (error) {
-        
-    }
+  genresService.genres()
+  .then(response => {
+    res.send(response);
+  });
 })
+
 app.post('/login', (req, res) => {
   loginService.login(req.body.email, req.body.password)
     .then(response => {
