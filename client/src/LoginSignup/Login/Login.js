@@ -10,6 +10,7 @@ export default function Login(){
 
     const emailRef = useRef();
     const passwordRef = useRef();
+    const msgRef = useRef('');
     
     const signInClicked = async () => {
 
@@ -19,6 +20,7 @@ export default function Login(){
           navigate(from, { replace: true });
         }else{
           console.error('Login fail', result.message);
+          msgRef.current.innerText = result.message;
         }
     }
 
@@ -27,7 +29,7 @@ export default function Login(){
         <>
             <div className='container'>
                 <div>Logo here</div>
-                <div>Incorrect email or password</div>
+                <div ref={msgRef}></div>
                 <div>Sign In</div>
                 <div>
                     Email
