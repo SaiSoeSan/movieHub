@@ -3,7 +3,7 @@ import { NextArrow, PrevArrow } from './CustomArrows';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
-const MovieList = () => {
+const MovieList = (props) => {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(4);
@@ -72,7 +72,6 @@ const MovieList = () => {
       />
     );
   }
-  
   const settings = {
     dots: true,
     infinite: true,
@@ -141,7 +140,7 @@ const MovieList = () => {
 
   return (
     <div>
-      <h5 className="mt-4 mb-4">Exciting Movies</h5>
+      <h5 className="mt-4 mb-4">{props.title ? props.title : 'Exciting Movies'}</h5>
       <Slider {...settings}>
         {/* {movies.map(movie => (
             <div key={movie._id}>

@@ -1,15 +1,23 @@
+const dbProvider = require('../DbProvider')
 
-async function login(){
-    
+async function login(email, password){
     try{
-        console.log('login func here')
-        return {
-            status: true,
-            data: {
-                userId: 'USER_ID',
-                userName: 'USER_NAME'
-            }
-        };
+        const query = { email: email, password: password };
+        let user = await dbProvider.dbChain().defineTable('user').getSingleData(query);
+        if(user != undefined){
+            return {
+                status: true,
+                data: {
+                    email: user.email,
+                    name: user.name                    
+                }
+            };
+        }else{
+            return {
+                status: false,
+                message: 'Invalid email or password'
+            };
+        }
 
     }catch(err) {
         console.error(err);
@@ -18,11 +26,10 @@ async function login(){
             message: err
         };
     }finally{
-
+        //await client.close();
     }
     
 }
-
 
 module.exports = {
     login: login
