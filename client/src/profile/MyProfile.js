@@ -16,7 +16,7 @@ function MyProfile() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ 'email': authService.loggedInUserInfo.email })
+                    body: JSON.stringify({ 'email': authService.loggedInUserInfo.get().email })
                 })
                 const result = await response.json();
                 setUserData(result.data)
@@ -122,9 +122,9 @@ function MyProfile() {
                     Watching Movies List
                 </div> */}
                 <hr />
-                <div>
+                {/* <div>
                     <MovieList title='Continue Watching' />
-                </div>
+                </div> */}
             </div>
         </div>
     )
