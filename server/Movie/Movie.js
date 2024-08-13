@@ -53,13 +53,6 @@ async function removeFavoriteByEmailAndMovieID(email, movieId) {
         //await client.close();
     }
 }
-
-
-module.exports = {
-    addFavoriteByEmailAndMovieId: addFavoriteByEmailAndMovieId,
-    isFavorite: isFavorite,
-    removeFavoriteByEmailAndMovieID: removeFavoriteByEmailAndMovieID,
-}
 async function getAllMovies() {
     try {
         let movies = await dbProvider.dbChain().defineTable('movies').getMultiData({});
@@ -105,5 +98,8 @@ async function getMoviesCount() {
 module.exports = {
     getAllMovies: getAllMovies,
     getMoviesCount: getMoviesCount,
-    getMovieDetails: getMovieDetails
+    getMovieDetails: getMovieDetails,
+    addFavoriteByEmailAndMovieId: addFavoriteByEmailAndMovieId,
+    isFavorite: isFavorite,
+    removeFavoriteByEmailAndMovieID: removeFavoriteByEmailAndMovieID,
 }
