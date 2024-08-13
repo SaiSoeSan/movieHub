@@ -17,6 +17,7 @@ let _loggedInUserInfo = {
 export const loggedInUserInfo = {
     set: function (data){
         _loggedInUserInfo = data;
+        
     },
     get: function (){
         return _loggedInUserInfo;
