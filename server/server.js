@@ -1,5 +1,6 @@
 const loginService = require('./LoginSignup/LoginServer')
 const profileService = require('./Profile/Profile')
+const movieServce = require('./Movie/Movie')
 const genres = require('./Movie/Genres')
 const movie = require('./Movie/Movie')
 
@@ -28,7 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 
 
 
-// // use static for react
+// use static for react
 app.use(express.static(path.join(__dirname, "../client/build")))
 
 app.listen(PORT, (req, res) => {
@@ -36,6 +37,7 @@ app.listen(PORT, (req, res) => {
 })
 
 const { log } = require('console');
+const { ObjectId } = require('mongodb')
 
 app.get('/api/genres', async (req,res) => {
     // try {
@@ -51,6 +53,7 @@ app.get('/api/genres', async (req,res) => {
       res.send(response)
     });
 })
+
 app.post('/login', (req, res) => {
   loginService.login(req.body.email, req.body.password)
     .then(response => {
@@ -127,18 +130,43 @@ app.get('/api/movie/detail/:_id', async (req, res) => {
   });
 
 });
+
 //profile
 app.post('/profile', (req, res) => {
   profileService.getUserInfoByEmail(req.body.email)
-  .then((response) => {
-    res.send(response)
-  })
+    .then((response) => {
+      res.send(response)
+    })
 })
 
 //update password
 app.post('/updatePassword', (req, res) => {
-  profileService.updatePasswordByEmail(req.body.userData.email,req.body.updatePassword)
-  .then(response=>{
+  profileService.updatePasswordByEmail(req.body.userData.email, req.body.updatePassword)
+    .then(response => {
+      res.send(response)
+    })
+})
+
+//add favorite
+app.post('/addFavorite', (req, res) => {
+  //check is favorite
+  movieServce.addFavoriteByEmailAndMovieId(req.body.email, req.body.movieId)
+    .then(response => {
+      res.send(response)
+    })
+})
+
+//is favorite
+app.post('/isFavorite', (req, res) => {
+  movieServce.isFavorite(req.body.email, req.body.movieId)
+    .then(response => response.data)
+    .then(data => res.send(data == null ? false : true))
+})
+
+//remove favorite
+app.post('/removeFavorite', (req, res) => {
+  movieServce.removeFavoriteByEmailAndMovieID(req.body.email, req.body.movieId)
+  .then(response => {
     res.send(response)
   })
 })

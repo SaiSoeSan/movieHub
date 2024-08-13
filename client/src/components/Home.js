@@ -4,7 +4,6 @@ import Nav from "./Nav";
 const Home = () => {
   return (
     <div>
-      {/* <Nav/> */}
       <main className="mainHome">
         <div className="container-fluid mt-5 mb-5">
           <h1 className="movieHead">Movies</h1>
