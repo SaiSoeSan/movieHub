@@ -1,10 +1,12 @@
 import { React, useRef } from 'react'
 import './Login.css'
 import * as authService from '../AuthService'
-import {Link, useNavigate } from 'react-router-dom';
+import {Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Login(){
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -13,7 +15,8 @@ export default function Login(){
 
         let result = await authService.login(emailRef.current.value, passwordRef.current.value);
         if(result.status){
-          navigate('/');
+          //navigate('/');
+          navigate(from, { replace: true });
         }else{
           console.error('Login fail', result.message);
         }
