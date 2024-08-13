@@ -58,6 +58,9 @@ code {
 .btn:hover{
   background: none !important ;
 }
+a{
+  color: white;
+}
 
 @media (min-width: 768px) { 
   .searchForm{

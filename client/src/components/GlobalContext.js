@@ -7,7 +7,7 @@ export const GlobalProvider = ({ children }) => {
     let baseUrl = "http://localhost:8000";
 
     const [genres, setGenres] = useState([]);
-    // const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
   
     // Fetch genres and movies from the API
@@ -17,11 +17,10 @@ export const GlobalProvider = ({ children }) => {
           const genresResponse = await fetch(baseUrl + "/api/genres"); 
           const genresData = await genresResponse.json();
           
-        //   const moviesResponse = await fetch('YOUR_MOVIES_API_ENDPOINT');
-        //   const moviesData = await moviesResponse.json();
-  
-          setGenres(genresData.data);
-        //   setMovies(moviesData);
+          const moviesResponse = await fetch(baseUrl + "/api/movies");
+          const moviesData = await moviesResponse.json();
+          setGenres(genresData);
+          setMovies(moviesData);
           setLoading(false);
         } catch (error) {
           console.error('Failed to fetch data:', error);
@@ -37,7 +36,7 @@ export const GlobalProvider = ({ children }) => {
     }
   
     return (
-      <GlobalContext.Provider value={{ genres, loading }}>
+      <GlobalContext.Provider value={{ genres,movies, loading }}>
         {children}
       </GlobalContext.Provider>
     );
