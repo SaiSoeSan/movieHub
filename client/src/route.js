@@ -4,8 +4,9 @@ import {
     Route,
     Link,
   } from "react-router-dom";
-import Login from "./components/Login";
+import Login from "./LoginSignup/Login/Login";
 import Home from "./components/Home";
+import Detail from "./Movie/Detail/Detail";
   
   const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ import Home from "./components/Home";
     {
         path: "login",
         element: <Login />
+    },
+    {
+      path: "movie/:_id",  // Route for movie details
+      element: <Detail />
     },
   ]);
 
