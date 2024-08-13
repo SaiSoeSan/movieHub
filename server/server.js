@@ -66,12 +66,14 @@ async function run() {
 // run().catch(console.dir);
 
 
-app.post('/login', (req, res) => {
-  loginService.login(req.body.userId, req.body.password)
-    .then(response => {
-      res.send(response);
-    });
+app.post('/login',(req, res) => {
+  loginService.login(req.body.email, req.body.password)
+  .then(response => {
+    res.send(response);
+  });
 })
+
+
 
 //my dummy data
 const myData = {
@@ -91,4 +93,3 @@ app.post('/updatePassword', (req, res) => {
   myData.password = req.body.updatePassword
   res.json({ 'update': 'completed' })
 })
-

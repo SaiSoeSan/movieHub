@@ -1,4 +1,3 @@
-import { Navigate, redirect, useNavigate } from 'react-router';
 import * as httpService from './HttpService'
 
 export function isLoggedIn(){   
@@ -10,10 +9,26 @@ export function isLoggedIn(){
     }
 }
 
-export async function login(userId, password){
-    let result = await httpService.post('login',{userId:userId, password: password});
-    if(result.status){
-        localStorage.setItem('isLoggedIn', true);
+export const loggedInUserInfo = {
+    email: '',
+    name: ''
+}
+
+export async function login(email, password){
+    let result = await httpService.post('login',{email:email, password: password});
+    if(result.data.status){
+        loggedInUserInfo.email = result.data.email;
+        loggedInUserInfo.name = result.data.name;        
+        setLogin();
     }
     return result;
+}
+
+export async function logout(){
+    localStorage.removeItem('isLoggedIn');
+    window.location.replace('/login');
+}
+
+export function setLogin(){
+    localStorage.setItem('isLoggedIn', true);
 }

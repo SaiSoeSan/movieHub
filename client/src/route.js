@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import * as authService from '../src/LoginSignup/AuthService'
 import Login from './LoginSignup/Login/Login'
 import MyProfile from "./profile/MyProfile";
+import Signup from "./LoginSignup/Signup/Signup";
   
   const router = createBrowserRouter([
     {
@@ -26,7 +27,10 @@ import MyProfile from "./profile/MyProfile";
     {
       path:'profile',
       element:<MyProfile/>
-    }
+    },{
+      path: "signup",
+      element: <Signup />
+  }
   ]);
 
   export default router;
