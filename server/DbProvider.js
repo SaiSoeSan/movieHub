@@ -1,7 +1,9 @@
+require('dotenv').config()
 const { query } = require('express');
 const { MongoClient, Collection } = require('mongodb');
-const client = new MongoClient('mongodb://localhost:27017/')
-const database = client.db('test_db');
+let databaseUrl = process.env.DB_URL;
+const client = new MongoClient(process.env.DB_URL)
+const database = client.db(process.env.DB_NAME);
 console.log('db provider here ------------')
 
 function dbChain(){
