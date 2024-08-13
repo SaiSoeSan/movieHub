@@ -1,4 +1,5 @@
 const loginService = require('./LoginSignup/LoginServer')
+const profileService = require('./Profile/Profile')
 
 const express = require('express')
 const app = express();
@@ -10,9 +11,9 @@ const cors = require('cors');
 const PORT = process.env.PORT || 8000;
 
 const options = {
-    origin : 'http://localhost:3000',
-    method : 'POST,GET,DELETE,PUT',
-    allowedHeaders : 'Content-Type'
+  origin: 'http://localhost:3000',
+  method: 'POST,GET,DELETE,PUT',
+  allowedHeaders: 'Content-Type'
 };
 
 // //use cors
@@ -21,11 +22,11 @@ app.use(cors(options));
 
 // //get parameter from request
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 
 
 // // use static for react
-app.use(express.static(path.join(__dirname,"../client/build")))
+app.use(express.static(path.join(__dirname, "../client/build")))
 
 // // app.use('*',(req,res) => {
 // //     res.sendFile(path.join(__dirname,"../client/build","index.html"))
@@ -35,8 +36,8 @@ app.use(express.static(path.join(__dirname,"../client/build")))
 //     res.send("hello")
 // })
 
-app.listen(PORT,(req,res) => {
-    console.log(`Server is running on localhost:${PORT}`)
+app.listen(PORT, (req, res) => {
+  console.log(`Server is running on localhost:${PORT}`)
 })
 
 require('dotenv').config()
@@ -66,9 +67,26 @@ async function run() {
 // run().catch(console.dir);
 
 
-app.post('/login',(req, res) => {
+app.post('/login', (req, res) => {
   loginService.login(req.body.email, req.body.password)
-  .then(response => {
-    res.send(response);
-  });
+    .then(response => {
+      res.send(response);
+    });
+})
+
+
+//profile
+app.post('/profile', (req, res) => {
+  profileService.getUserInfoByEmail(req.body.email)
+  .then((response) => {
+    res.send(response)
+  })
+})
+
+//update password
+app.post('/updatePassword', (req, res) => {
+  profileService.updatePasswordByEmail(req.body.userData.email,req.body.updatePassword)
+  .then(response=>{
+    res.send(response)
+  })
 })

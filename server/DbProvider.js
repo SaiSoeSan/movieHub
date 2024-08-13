@@ -1,3 +1,4 @@
+const { query } = require('express');
 const { MongoClient, Collection } = require('mongodb');
 const client = new MongoClient('mongodb://localhost:27017/')
 const database = client.db('test_db');
@@ -15,6 +16,10 @@ function dbChain(){
         },
         getMultiData: async (query) => {
             const data = await tbl.find(query)
+            return data;
+        },
+        updateData : async(query,newValues)=>{
+            const data = await tbl.updateOne(query,newValues)
             return data;
         }
     }
