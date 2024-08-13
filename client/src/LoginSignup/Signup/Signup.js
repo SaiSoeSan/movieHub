@@ -8,6 +8,7 @@ export default function Signup(){
     const passwordRef = useRef();
     const confirmPasswordRef = useRef();
     const nameRef = useRef();
+    const msgRef = useRef('');
 
     const signupClicked = async () => {
         let result = await signupService.signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value);
@@ -15,6 +16,7 @@ export default function Signup(){
           navigate('/');
         }else{
           console.error('Signup fail', result.message);
+          msgRef.current.innerText = result.message;
         }
     }
 
@@ -35,6 +37,8 @@ export default function Signup(){
                     <input type='password' ref={confirmPasswordRef} required={true}></input>
                     <br></br>
                     <button onClick={signupClicked}>Signup</button>
+                    <br></br>
+                    <div ref={msgRef}></div>
                 </div>
             </div>
         </>
