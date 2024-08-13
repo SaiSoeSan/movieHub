@@ -9,18 +9,10 @@ export function isLoggedIn(){
     }
 }
 
-let _loggedInUserInfo = {
-    email: undefined,
-    name: undefined
-}
-
-export const loggedInUserInfo = {
-    set: function (data){
-        _loggedInUserInfo = data;
-        
-    },
+export const loggedInUserInfo = {   
     get: function (){
-        return _loggedInUserInfo;
+        const userInfo = localStorage.getItem('userInfo');
+        return JSON.parse(userInfo);
     }
 };
 
@@ -35,10 +27,11 @@ export async function login(email, password){
 export async function logout(){
     loggedInUserInfo.set({email:undefined,name:undefined});
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userInfo')
     window.location.replace('/login');
 }
 
 export function setLogin(data){
     localStorage.setItem('isLoggedIn', true);
-    loggedInUserInfo.set(data)
+    localStorage.setItem('userInfo',JSON.stringify(data))
 }
