@@ -1,4 +1,5 @@
 const loginService = require('./LoginSignup/LoginServer')
+const signupService = require('./LoginSignup/SignupServer')
 const profileService = require('./Profile/Profile')
 const movieServce = require('./Movie/Movie')
 const genres = require('./Movie/Genres')
@@ -48,6 +49,13 @@ app.get('/api/genres', async (req,res) => {
 
 app.post('/login', (req, res) => {
   loginService.login(req.body.email, req.body.password)
+    .then(response => {
+      res.send(response);
+    });
+})
+
+app.post('/signup', (req, res) => {
+  signupService.signup(req.body.email, req.body.password, req.body.name)
     .then(response => {
       res.send(response);
     });
