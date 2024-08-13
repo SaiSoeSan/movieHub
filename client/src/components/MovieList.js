@@ -1,6 +1,6 @@
 import Slider from "react-slick";
 
-const MovieList = () => {
+const MovieList = (props) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -36,7 +36,7 @@ const MovieList = () => {
   };
   return (
     <div>
-      <h5 className="mt-4 mb-4">Exciting Movies</h5>
+      <h5 className="mt-4 mb-4">{props.title ? props.title : 'Exciting Movies'}</h5>
       <Slider {...settings}>
         <div>
           <img src="../../images/movie1.jpg" alt="" />
