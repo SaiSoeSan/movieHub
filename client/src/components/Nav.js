@@ -1,10 +1,12 @@
 import { useEffect, useContext } from "react";
 import { GlobalContext } from './GlobalContext';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import * as authService from '../LoginSignup/AuthService'
 
 const Nav = () => {
   const { genres, loading } = useContext(GlobalContext);
-  let isLoggedIn = true;
+  const navigate = useNavigate();
+  let isLoggedIn = authService.isLoggedIn();
   return (
     <>
       <nav
@@ -76,16 +78,16 @@ const Nav = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      UserName
+                      {authService.loggedInUserInfo.get().name}
                     </div>
                     <ul className="dropdown-menu dropdown-menu-dark" style={{left:"-80px"}}>
                       <li>
-                        <a className="dropdown-item" href="#">
+                        <a className="dropdown-item" href="#" onClick={()=>navigate('/profile')}>
                           View Profile
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="#">
+                        <a className="dropdown-item" href="#" onClick={()=>authService.logout()}>
                           LogOut
                         </a>
                       </li>
@@ -95,7 +97,7 @@ const Nav = () => {
               </>
             )}
             {!isLoggedIn && (
-              <button className="btn login-btn ms-2">Login</button>
+              <button className="btn login-btn ms-2" onClick={()=>navigate('/login')}>Login</button>
             )}
           </div>
         </div>
