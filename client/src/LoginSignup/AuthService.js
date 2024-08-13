@@ -10,8 +10,8 @@ export function isLoggedIn(){
 }
 
 export const loggedInUserInfo = {
-    email: '',
-    name: ''
+    email: 'dummy@mail.com',
+    name: 'Dummy'
 }
 
 export async function login(email, password){

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import MovieList from '../components/MovieList';
+import * as authService from '../LoginSignup/AuthService'
 
 function MyProfile() {
     const updatePassword = useRef();
@@ -10,31 +11,32 @@ function MyProfile() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/profile')
+                const response = await fetch('http://localhost:8000/profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 'email': authService.loggedInUserInfo.email })
+                })
                 const result = await response.json();
-                setUserData(result)
+                setUserData(result.data)
             } catch (error) {
                 console.log(error)
             }
         }
         fetchData();
     }, [editPassword])
-    useEffect(() => {
-        console.log(userData)
-    })
     const editPasswordButton = async (e) => {
         e.preventDefault();
-        console.log(updatePassword.current.value)
         const response = await fetch('http://localhost:8000/updatePassword', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ 'updatePassword': updatePassword.current.value })
+            body: JSON.stringify({ 'userData': userData, 'updatePassword': updatePassword.current.value })
         })
         const result = await response.json();
         if (result['update'] === 'completed') {
-            // Alert('Update Completed');
             setShowAlert(true);
             setTimeout(() => setShowAlert(false), 1500);
         }
@@ -58,7 +60,17 @@ function MyProfile() {
                     </div>
                     <div className='col text-center'>
                         <div>
-                            {userData.username}
+                            {userData.email}
+                        </div>
+                    </div>
+                </div>
+                <div className='row py-1'>
+                    <div className='col text-center'>
+                        Name
+                    </div>
+                    <div className='col text-center'>
+                        <div>
+                            {userData.name}
                         </div>
                     </div>
                 </div>
@@ -78,7 +90,7 @@ function MyProfile() {
                                         <button type="submit" className="btn btn-primary mb-3 " onClick={editPasswordButton}>Confirm</button>
                                     </div>
                                     {/* </form> */}
-                                    
+
                                 </div>
                                 :
                                 <div>

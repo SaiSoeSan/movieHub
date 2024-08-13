@@ -1,4 +1,5 @@
 const loginService = require('./LoginSignup/LoginServer')
+const profileService = require('./Profile/Profile')
 
 const express = require('express')
 const app = express();
@@ -66,30 +67,26 @@ async function run() {
 // run().catch(console.dir);
 
 
-app.post('/login',(req, res) => {
+app.post('/login', (req, res) => {
   loginService.login(req.body.email, req.body.password)
-  .then(response => {
-    res.send(response);
-  });
+    .then(response => {
+      res.send(response);
+    });
 })
 
 
-
-//my dummy data
-const myData = {
-  username: 'username',
-  password: 'my-password123',
-}
-
-
 //profile
-app.get('/profile', (req, res) => {
-  res.json(myData)
+app.post('/profile', (req, res) => {
+  profileService.getUserInfoByEmail(req.body.email)
+  .then((response) => {
+    res.send(response)
+  })
 })
 
 //update password
 app.post('/updatePassword', (req, res) => {
-  console.log('post', req.body)
-  myData.password = req.body.updatePassword
-  res.json({ 'update': 'completed' })
+  profileService.updatePasswordByEmail(req.body.userData.email,req.body.updatePassword)
+  .then(response=>{
+    res.send(response)
+  })
 })

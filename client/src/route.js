@@ -26,6 +26,7 @@ import Signup from "./LoginSignup/Signup/Signup";
     },
     {
       path:'profile',
+      loader: authService.isLoggedIn,
       element:<MyProfile/>
     },{
       path: "signup",
