@@ -33,7 +33,7 @@ export default function Login(){
                 </div>
                 <div>
                     Password
-                    <input type="text" ref={passwordRef}></input>
+                    <input type="password" ref={passwordRef}></input>
                 </div>
                 <div>
                     <input type="button" value="Sign In" onClick={signInClicked}></input>
