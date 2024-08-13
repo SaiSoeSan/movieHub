@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 
 
 
-// // use static for react
+// use static for react
 app.use(express.static(path.join(__dirname, "../client/build")))
 
 app.listen(PORT, (req, res) => {
@@ -53,6 +53,7 @@ app.get('/api/genres', async (req,res) => {
       res.send(response)
     });
 })
+
 app.post('/login', (req, res) => {
   loginService.login(req.body.email, req.body.password)
     .then(response => {

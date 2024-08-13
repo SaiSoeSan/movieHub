@@ -4,13 +4,14 @@ import './index.css';
 import App from './App';
 import { createRoot } from "react-dom/client";
 import reportWebVitals from './reportWebVitals';
-import router from './route'
+import router from './route';
+import { GlobalProvider } from './components/GlobalContext';
 import {
   RouterProvider,
 } from "react-router-dom";
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <GlobalProvider><RouterProvider router={router} /></GlobalProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
