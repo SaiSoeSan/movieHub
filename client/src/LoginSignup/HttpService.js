@@ -9,11 +9,8 @@ export async function post(endpoint, param){
     })
     .then(async (response) => {
         if(response.ok){
-            let data = await response.json();
-            return {
-                status: true,
-                data: data
-            };
+            let result = await response.json();
+            return result;
 
         }else{
             throw Error(response.statusText);
@@ -34,11 +31,8 @@ export async function get(endpoint, param){
     return await fetch(`${baseUrl}${endpoint}`)
     .then(async (response) => {
         if(response.ok){
-            let data = await response.json();
-            return {
-                status: true,
-                data: data
-            };
+            let result = await response.json();
+            return result;
 
         }else{
             throw Error(response.statusText);
