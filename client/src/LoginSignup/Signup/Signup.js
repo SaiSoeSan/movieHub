@@ -6,9 +6,11 @@ export default function Signup(){
     const navigate = useNavigate();
     const emailRef = useRef();
     const passwordRef = useRef();
+    const confirmPasswordRef = useRef();
+    const nameRef = useRef();
 
     const signupClicked = async () => {
-        let result = await signupService.signup(emailRef.current.value, passwordRef.current.value);
+        let result = await signupService.signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value);
         if(result.status){
           navigate('/');
         }else{
@@ -20,14 +22,17 @@ export default function Signup(){
         <>
             <div>
                 <div>
+                    <label>Name</label>
+                    <input type='text' ref={nameRef} required={true}></input>
+                    <br></br>
                     <label>Email Address</label>
-                    <input type='text' ref={emailRef}></input>
+                    <input type='text' ref={emailRef} required={true}></input>
                     <br></br>
                     <label>Password</label>
-                    <input type='password' ref={passwordRef}></input>
+                    <input type='password' ref={passwordRef} required={true}></input>
                     <br></br>
                     <label>Confirm Password</label>
-                    <input type='password'></input>
+                    <input type='password' ref={confirmPasswordRef} required={true}></input>
                     <br></br>
                     <button onClick={signupClicked}>Signup</button>
                 </div>
