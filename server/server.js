@@ -1,5 +1,6 @@
 const loginService = require('./LoginSignup/LoginServer')
 const profileService = require('./Profile/Profile')
+const movieServce = require('./Movie/Movie')
 
 const express = require('express')
 const app = express();
@@ -49,11 +50,11 @@ app.listen(PORT, (req, res) => {
 // const uri = process.env.CONNECTION_STRING
 
 const { log } = require('console');
-const { MongoClient,ObjectId } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const databaseUrl = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(databaseUrl);
 
-const database = client.db('mflix');
+const database = client.db('test_db');
 
 // app.post('/login',(req, res) => {
 //   loginService.login(req.body.userId, req.body.password)
@@ -63,15 +64,15 @@ const database = client.db('mflix');
 // })
 
 
-app.get('/api/genres', async (req,res) => {
-    try {
-        const genres = database.collection('genres');
-        const cursor = await genres.find(); 
-        const allGenres = await cursor.toArray();
-        res.json(allGenres)
-    } catch (error) {
-        
-    }
+app.get('/api/genres', async (req, res) => {
+  try {
+    const genres = database.collection('genres');
+    const cursor = await genres.find();
+    const allGenres = await cursor.toArray();
+    res.json(allGenres)
+  } catch (error) {
+
+  }
 })
 app.post('/login', (req, res) => {
   loginService.login(req.body.email, req.body.password)
@@ -80,8 +81,8 @@ app.post('/login', (req, res) => {
     });
 })
 
-app.get('/api/allmovies', async (req,res)=>{
-  const database = client.db('mflix');
+app.get('/api/allmovies', async (req, res) => {
+  const database = client.db('test_db');
   const movies = database.collection('movies');
   const total = await movies.countDocuments(); // 获取总电影数
 
@@ -91,17 +92,17 @@ app.get('/api/allmovies', async (req,res)=>{
 
 app.get('/api/movies', async (req, res) => {
   const page = parseInt(req.query.page) || 0;
-  const pageSize = parseInt(req.query.pageSize) || 4; 
+  const pageSize = parseInt(req.query.pageSize) || 4;
 
   try {
-    const database = client.db('mflix');
+    const database = client.db('test_db');
     //console.log(database);
     const movies = database.collection('movies');
     //const movies = db.collection('movies');
 
     const cursor = movies.find({})
-                         .skip(page * pageSize)
-                         .limit(pageSize);
+      .skip(page * pageSize)
+      .limit(pageSize);
     const allMovies = await cursor.toArray();
     //console.log(allMovies);
     res.json(allMovies);
@@ -117,7 +118,7 @@ app.get('/api/movie/detail/:_id', async (req, res) => {
   console.log(_id);
 
   try {
-    const database = client.db('mflix');
+    const database = client.db('test_db');
     //console.log(database);
     const movies = database.collection('movies');
     //const movies = db.collection('movies');
@@ -134,18 +135,43 @@ app.get('/api/movie/detail/:_id', async (req, res) => {
     res.status(500).send("Error fetching movies");
   }
 });
+
 //profile
 app.post('/profile', (req, res) => {
   profileService.getUserInfoByEmail(req.body.email)
-  .then((response) => {
-    res.send(response)
-  })
+    .then((response) => {
+      res.send(response)
+    })
 })
 
 //update password
 app.post('/updatePassword', (req, res) => {
-  profileService.updatePasswordByEmail(req.body.userData.email,req.body.updatePassword)
-  .then(response=>{
+  profileService.updatePasswordByEmail(req.body.userData.email, req.body.updatePassword)
+    .then(response => {
+      res.send(response)
+    })
+})
+
+//add favorite
+app.post('/addFavorite', (req, res) => {
+  //check is favorite
+  movieServce.addFavoriteByEmailAndMovieId(req.body.email, req.body.movieId)
+    .then(response => {
+      res.send(response)
+    })
+})
+
+//is favorite
+app.post('/isFavorite', (req, res) => {
+  movieServce.isFavorite(req.body.email, req.body.movieId)
+    .then(response => response.data)
+    .then(data => res.send(data == null ? false : true))
+})
+
+//remove favorite
+app.post('/removeFavorite', (req, res) => {
+  movieServce.removeFavoriteByEmailAndMovieID(req.body.email, req.body.movieId)
+  .then(response => {
     res.send(response)
   })
 })
