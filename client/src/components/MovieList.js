@@ -1,5 +1,4 @@
 import Slider from "react-slick";
-import { NextArrow, PrevArrow } from './CustomArrows'; 
 
 const MovieList = () => {
   const settings = {
