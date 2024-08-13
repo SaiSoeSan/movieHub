@@ -1,5 +1,6 @@
 import { useEffect, useContext } from "react";
 import { GlobalContext } from './GlobalContext';
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const { genres, loading } = useContext(GlobalContext);
@@ -40,16 +41,19 @@ const Nav = () => {
                   >
                     Genres
                   </button>
-                  <div className="dropdown-menu" style={{ width: "600px" }}>
+                  <div className="dropdown-menu dropdown-menu-dark" style={{ width: "600px" }}>
                     <div className="container">
                       {loading && <div>Loading ...</div>}
                       <div className="row">
                         {!loading &&
                           genres.map((genre) => (
                             <div className="col-md-4" key={genre._id}>
+                              <Link to={`/home?genre=${genre.name}`}>
                               {genre.name}
+                              </Link>
                             </div>
-                          ))}
+                          ))
+                        }
                       </div>
                     </div>
                   </div>
