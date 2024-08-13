@@ -23,6 +23,10 @@ function dbChain() {
             const count = await tbl.countDocuments()
             return count;
         },
+        getCount: async () => {
+            const count = await tbl.countDocuments()
+            return count;
+        },
         updateData : async(query,newValues)=>{
             const data = await tbl.updateOne(query,newValues)
             return data;
