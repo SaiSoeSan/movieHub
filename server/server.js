@@ -71,6 +71,7 @@ app.get('/api/genres', async (req,res) => {
     } catch (error) {
         
     }
+})
 app.post('/login', (req, res) => {
   loginService.login(req.body.email, req.body.password)
     .then(response => {

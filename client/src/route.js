@@ -5,7 +5,6 @@ import {
   Link,
 } from "react-router-dom";
 import Home from "./components/Home";
-import * as authService from "../src/LoginSignup/AuthService";
 import Layout from "./components/Layout";
 
 import * as authService from '../src/LoginSignup/AuthService'
