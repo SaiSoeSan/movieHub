@@ -57,7 +57,7 @@ import InitialPage from "./components/InitialPage";
         element: <Layout />,
         children: [
           {
-            path:'/home',
+            path:'/home/:pathParam?',
             element: <Home />
           },
           {

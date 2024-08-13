@@ -38,14 +38,6 @@ app.listen(PORT, (req, res) => {
 const { log } = require('console');
 
 app.get('/api/genres', async (req,res) => {
-    // try {
-    //     const genres = database.collection('genres');
-    //     const cursor = await genres.find(); 
-    //     const allGenres = await cursor.toArray();
-    //     res.json(allGenres)
-    // } catch (error) {
-        
-    // }
     genres.getAllGenres()
     .then(response => {
       res.send(response)

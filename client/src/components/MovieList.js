@@ -9,26 +9,26 @@ const MovieList = (props) => {
   const [pageSize, setPageSize] = useState(4);
   const [totalPage, setTotalPage] = useState(0);
 
-  const clickNextArrow =  (event)=>{
-    console.log("next page", page);
-    let boundPage = Math.floor((totalPage + pageSize - 1) / pageSize) ;
-    console.log("bond", boundPage);
-    if(page == boundPage -  2){
-      setPage(0);
-    }else{
-      setPage(page + 1);
-    }
-  }
-  const clickPrevArrow =  (event)=>{
-    console.log("prev, page",page);
-    let boundPage = Math.floor((totalPage + pageSize - 1) / pageSize) ;
-    console.log("bond", boundPage);
-    if(page == 0){
-      setPage(boundPage - 1);
-    }else{
-      setPage(page - 1);
-    }
-  }
+  // const clickNextArrow =  (event)=>{
+  //   console.log("next page", page);
+  //   let boundPage = Math.floor((totalPage + pageSize - 1) / pageSize) ;
+  //   console.log("bond", boundPage);
+  //   if(page == boundPage -  2){
+  //     setPage(0);
+  //   }else{
+  //     setPage(page + 1);
+  //   }
+  // }
+  // const clickPrevArrow =  (event)=>{
+  //   console.log("prev, page",page);
+  //   let boundPage = Math.floor((totalPage + pageSize - 1) / pageSize) ;
+  //   console.log("bond", boundPage);
+  //   if(page == 0){
+  //     setPage(boundPage - 1);
+  //   }else{
+  //     setPage(page - 1);
+  //   }
+  // }
 
   const updatePageSize = ()=>{
     const width = window.innerWidth;
@@ -51,27 +51,27 @@ const MovieList = (props) => {
     };
   },[]);
 
-  function NextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", }}
-        onClick={clickNextArrow}
-      />
-    );
-  }
+  // function NextArrow(props) {
+  //   const { className, style, onClick } = props;
+  //   return (
+  //     <div
+  //       className={className}
+  //       style={{ ...style, display: "block", }}
+  //       onClick={clickNextArrow}
+  //     />
+  //   );
+  // }
   
-  function PrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", }}
-        onClick={clickPrevArrow}
-      />
-    );
-  }
+  // function PrevArrow(props) {
+  //   const { className, style, onClick } = props;
+  //   return (
+  //     <div
+  //       className={className}
+  //       style={{ ...style, display: "block", }}
+  //       onClick={clickPrevArrow}
+  //     />
+  //   );
+  // }
   const settings = {
     dots: true,
     infinite: true,
@@ -79,8 +79,8 @@ const MovieList = (props) => {
     slidesToShow: pageSize,
     slidesToScroll: pageSize,
     // nextArrow: <NextArrow onClick={() => setPage(page + 1)} />,
-    nextArrow: <NextArrow/>,
-    prevArrow: <PrevArrow  />,
+    // nextArrow: <NextArrow/>,
+    // prevArrow: <PrevArrow  />,
     responsive: [
         {
           breakpoint: 1024,
@@ -114,7 +114,6 @@ const MovieList = (props) => {
       const response = await fetch(`http://localhost:8000/api/movies?page=${page}&pageSize=${pageSize}`);
       const data = await response.json();
       setMovies(data);
-      console.log(data);
     }
     fetchmovices();
   },[page]);
@@ -123,7 +122,6 @@ const MovieList = (props) => {
     const fetchmovices = async()=>{
       const response = await fetch('http://localhost:8000/api/allmovies');
       const data = await response.json();
-      console.log("total page",data);
       setTotalPage(data);
     }
     fetchmovices();
@@ -142,7 +140,7 @@ const MovieList = (props) => {
     <div>
       <h5 className="mt-4 mb-4">{props.title ? props.title : 'Exciting Movies'}</h5>
       <Slider {...settings}>
-        {movies.map(movie => (
+        {props.movies.map(movie => (
           <MovieItem key={movie._id} movie={movie} />
         ))}
       </Slider>

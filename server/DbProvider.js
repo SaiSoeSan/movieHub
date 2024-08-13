@@ -17,7 +17,7 @@ function dbChain(){
         },
         getMultiData: async (query) => {
             const data = await tbl.find(query)
-            return data.toArray();
+            return data;
         },
         getCount: async () => {
             const count = await tbl.countDocuments()
