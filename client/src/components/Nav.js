@@ -80,7 +80,7 @@ const Nav = () => {
                     >
                       {authService.loggedInUserInfo.get().name}
                     </div>
-                    <ul className="dropdown-menu dropdown-menu-dark" style={{left:"-80px"}}>
+                    <ul className="dropdown-menu dropdown-menu-dark" style={{left:"-95px"}}>
                       <li>
                         <a className="dropdown-item" href="#" onClick={()=>navigate('/profile')}>
                           View Profile

@@ -130,7 +130,8 @@ const MovieList = (props) => {
   const MovieItem = ({ movie }) => (
     <div>
       <Link to={`/movie/${movie._id}`}>
-        <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName} />
+        {/* <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName} style={{height:'220px'}} /> */}
+        <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName}/>
         <h6 className="movieTitle text-center">{movie.mainMovieName}</h6>
       </Link>
     </div>
