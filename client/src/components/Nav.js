@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { GlobalContext } from './GlobalContext';
 import { Link, useNavigate } from "react-router-dom";
 import * as authService from '../LoginSignup/AuthService'
@@ -7,6 +7,12 @@ const Nav = () => {
   const { genres, loading } = useContext(GlobalContext);
   const navigate = useNavigate();
   let isLoggedIn = authService.isLoggedIn();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <>
       <nav
@@ -66,10 +72,11 @@ const Nav = () => {
                     type="search"
                     placeholder="Search Movie"
                     aria-label="Search"
+                    onChange={handleInputChange}
                   />
-                  <button className="btn btn-outline-danger" type="submit">
+                  <Link className="btn btn-outline-danger" to={`/home?name=${searchTerm}`}>
                     Search
-                  </button>
+                  </Link>
                 </form>
                 <ul className="ms-3 navbar-nav" style={{cursor:"pointer"}}>
                   <li className="nav-item dropdown">
