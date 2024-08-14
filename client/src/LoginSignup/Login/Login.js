@@ -3,6 +3,8 @@ import './Login.css'
 import * as authService from '../AuthService'
 import {Link, useLocation, useNavigate } from 'react-router-dom';
 
+const emailFormat = '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+
 export default function Login(){
     const navigate = useNavigate();
     const location = useLocation();
@@ -18,7 +20,10 @@ export default function Login(){
         }
     },[])
     
-    const signInClicked = async () => {
+    const signInClicked = async (event) => {
+
+        event.preventDefault();
+        if(!event.target.reportValidity()) return;
 
         let result = await authService.login(emailRef.current.value, passwordRef.current.value);
         if(result.status){
@@ -36,22 +41,22 @@ export default function Login(){
             <div className='container'>
             <div className="row" style={{height:"100vh"}}>
                 <div className="col-md-5 offset-md-3 col-xs-12 align-self-center">
-                <form style={{backgroundColor:"gray",padding:"20px"}}>
+                <form style={{backgroundColor:"gray",padding:"20px"}} onSubmit={signInClicked} noValidate>
                     
                 <div className="mb-3">
                 <div className='text-danger text-center' ref={msgRef}></div>
                     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                    <input type="text" className='form-control' ref={emailRef} />
+                    <input type="email" className='form-control' ref={emailRef} pattern={emailFormat} required={true}/>
                     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                    <input type="password" className='form-control' ref={passwordRef}></input>
+                    <label htmlFor="exampleInputPassword1" className="form-label" >Password</label>
+                    <input type="password" className='form-control' ref={passwordRef} required={true}></input>
                 </div>
                 <div className="mb-3">
                     New to page? <Link to={'/signup'}>Sign up</Link> now.
                 </div>
-                <input type="button" style={{width:"100%"}} className='btn btn-danger' value="Sign In" onClick={signInClicked}></input>
+                <button style={{width:"100%"}} className='btn btn-danger'>Sign In</button>
             </form>
                 </div>
             </div>
