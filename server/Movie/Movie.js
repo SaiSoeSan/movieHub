@@ -1,3 +1,4 @@
+const { query } = require('express');
 const dbProvider = require('../DbProvider')
 
 async function isFavorite(email, movieId) {
@@ -94,6 +95,18 @@ async function getMoviesCount() {
     }
 
 }
+async function getFavorite() {
+    try {
+        let data = await dbProvider.dbChain().defineTable('favorite').getMultiData({})
+        return  await data.toArray();
+
+    } catch (err) {
+        console.error(err);
+        return 0;
+    } finally {
+        //await client.close();
+    }
+}
 
 module.exports = {
     getAllMovies: getAllMovies,
@@ -102,4 +115,5 @@ module.exports = {
     addFavoriteByEmailAndMovieId: addFavoriteByEmailAndMovieId,
     isFavorite: isFavorite,
     removeFavoriteByEmailAndMovieID: removeFavoriteByEmailAndMovieID,
+    getFavorite: getFavorite
 }

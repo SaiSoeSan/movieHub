@@ -7,6 +7,7 @@ function MyProfile() {
     const [userData, setUserData] = useState({})
     const [editPassword, setEditPassword] = useState(false)
     const [showAlert, setShowAlert] = useState(false);
+    const [favorite,setFavorite] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,7 +25,23 @@ function MyProfile() {
                 console.log(error)
             }
         }
+        const fetchFavorite = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/favorite', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 'email': authService.loggedInUserInfo.get().email })
+                })
+                const result = await response.json();
+                setFavorite(result)
+            } catch (error) {
+                console.log(error)
+            }
+        }
         fetchData();
+        fetchFavorite();
     }, [editPassword])
     const editPasswordButton = async (e) => {
         e.preventDefault();
@@ -116,7 +133,8 @@ function MyProfile() {
                 </div> */}
                 <hr />
                 <div>
-                    <MovieList title='Favourite Movie List' />
+                    {/* <MovieList title='Favourite Movie List' /> */}
+                        <MovieList movies={favorite} title='My Favorite Movies' />
                 </div>
                 {/* <div className='text-center h3'>
                     Watching Movies List
