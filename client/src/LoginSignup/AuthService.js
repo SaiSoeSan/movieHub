@@ -21,10 +21,9 @@ export async function login(email, password){
 }
 
 export async function logout(){
-    loggedInUserInfo.set({email:undefined,name:undefined});
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userInfo')
-    window.location.replace('/login');
+    window.location.replace('/');
 }
 
 export function setLogin(data){
