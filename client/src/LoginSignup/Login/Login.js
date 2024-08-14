@@ -11,6 +11,12 @@ export default function Login(){
     const emailRef = useRef();
     const passwordRef = useRef();
     const msgRef = useRef('');
+
+    useEffect(()=>{
+        if(authService.isLoggedIn()){
+            navigate('/');
+        }
+    },[])
     
     const signInClicked = async () => {
 
