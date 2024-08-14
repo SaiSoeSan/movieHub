@@ -134,7 +134,7 @@ function MyProfile() {
                 <hr />
                 <div>
                     {/* <MovieList title='Favourite Movie List' /> */}
-                        <MovieList movies={favorite} title='My Favorite' />
+                        <MovieList movies={favorite} title='My Favorite Movies' />
                 </div>
                 {/* <div className='text-center h3'>
                     Watching Movies List
