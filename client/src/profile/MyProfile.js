@@ -7,7 +7,7 @@ function MyProfile() {
     const [userData, setUserData] = useState({})
     const [editPassword, setEditPassword] = useState(false)
     const [showAlert, setShowAlert] = useState(false);
-    const [favorite,setFavorite] = useState([])
+    const [favorite, setFavorite] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,16 +98,13 @@ function MyProfile() {
                     <div className='col text-center'>
                         {
                             editPassword ?
-                                <div>
-                                    {/* <form className="row g-2" method='post' action='/updatePassword'> */}
-                                    <div className="col-auto">
+                                <div className='row'>
+                                    <div className="col-6">
                                         <input type="password" className="form-control" id="inputPassword2" defaultValue={userData.password} ref={updatePassword} />
                                     </div>
-                                    <div className="col-auto">
+                                    <div className="col-3">
                                         <button type="submit" className="btn btn-primary mb-3 " onClick={editPasswordButton}>Confirm</button>
                                     </div>
-                                    {/* </form> */}
-
                                 </div>
                                 :
                                 <div>
@@ -128,18 +125,16 @@ function MyProfile() {
         <div className='container-md'>
             <div className='mw-100 p-2'>
                 <ShowUserData />
-                {/* <div className='text-center h3'>
-                    Favourite Movies List
-                </div> */}
                 <hr />
-                <MovieList movies={favorite} title='My Favorite Movies' />
-                {/* <div className='text-center h3'>
-                    Watching Movies List
-                </div> */}
+                {favorite.length === 0 ?
+                    <div className='h3'>
+                        No Favorite Movie
+                    </div>
+                    :
+                    <div>
+                        <MovieList movies={favorite} title='My Favorite Movies' />
+                    </div>}
                 <hr />
-                {/* <div>
-                    <MovieList title='Continue Watching' />
-                </div> */}
             </div>
         </div>
     )
