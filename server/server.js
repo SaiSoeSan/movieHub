@@ -40,8 +40,8 @@ app.listen(PORT, (req, res) => {
 const { log } = require('console');
 const { ObjectId } = require('mongodb')
 
-app.get('/api/genres', async (req,res) => {
-    genres.getAllGenres()
+app.get('/api/genres', async (req, res) => {
+  genres.getAllGenres()
     .then(response => {
       res.send(response)
     });
@@ -61,14 +61,14 @@ app.post('/signup', (req, res) => {
     });
 })
 
-app.get('/api/allmovies', async (req,res)=>{
+app.get('/api/allmovies', async (req, res) => {
   // const database = client.db('mflix');
   // const movies = database.collection('movies');
   // const total = await movies.countDocuments(); // 获取总电影数
 
   // res.json(total);
 
-  
+
   movie.getMoviesCount()
     .then(response => {
       res.json(response)
@@ -125,9 +125,9 @@ app.get('/api/movie/detail/:_id', async (req, res) => {
   // }
 
   movie.getMovieDetails({ _id: new ObjectId(_id) })
-  .then(response => {
-    res.send(response)
-  });
+    .then(response => {
+      res.send(response)
+    });
 
 });
 
@@ -166,7 +166,31 @@ app.post('/isFavorite', (req, res) => {
 //remove favorite
 app.post('/removeFavorite', (req, res) => {
   movieServce.removeFavoriteByEmailAndMovieID(req.body.email, req.body.movieId)
-  .then(response => {
-    res.send(response)
-  })
+    .then(response => {
+      res.send(response)
+    })
+})
+
+//favorite
+app.post('/favorite', async (req, res) => {
+  try {
+    // Step 1: Fetch the favorite movies for the user by their email
+    const favorites = await movie.getFavorite();
+
+    // Step 2: Extract the movie IDs for the given user
+    const movieIds = favorites
+      .filter(item => item.email === req.body.email)
+      .map(i => i.movieId);
+
+    // Step 3: Get all movies and filter based on the favorite movie IDs
+    const allMovies = await movie.getAllMovies();
+    const favoriteMovies = movieIds.map(id =>
+      allMovies.find(movie => movie._id.equals(new ObjectId(id)))
+    );
+    res.send(favoriteMovies);
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error(error);
+    res.status(500).send('An error occurred while processing your request.');
+  }
 })
