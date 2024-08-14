@@ -42,7 +42,7 @@ export default function Login(){
             <div className="row" style={{height:"100vh"}}>
                 <div className="col-md-5 offset-md-3 col-xs-12 align-self-center">
                 <form style={{backgroundColor:"gray",padding:"20px"}} onSubmit={signInClicked} noValidate>
-                    
+                <h4 className="text-center" style={{fontWeight:"800"}}>Sign In</h4>
                 <div className="mb-3">
                 <div className='text-danger text-center' ref={msgRef}></div>
                     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>

@@ -76,7 +76,7 @@ export default function Signup() {
         <div className="row" style={{ height: "100vh" }}>
           <div className="col-md-5 offset-md-3 col-xs-12 align-self-center">
             <form style={{ backgroundColor: "gray", padding: "20px" }} onSubmit={signupClicked} noValidate>
-
+            <h4 className="text-center" style={{fontWeight:"800"}}>Sign Up</h4>
             <div className="mb-3">
                 <div className="text-danger text-center" ref={msgRef}></div>
                 <label htmlFor="name" className="form-label">
@@ -127,6 +127,9 @@ export default function Signup() {
                   required={true}
                 ></input>
               </div>
+              <div className="mb-3">
+                    Already have an account? <Link to={'/login'}>Sign in</Link> now.
+                </div>
               <button style={{width:"100%"}} className='btn btn-danger'>Signup</button>
             </form>
           </div>
