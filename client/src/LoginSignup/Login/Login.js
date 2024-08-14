@@ -28,7 +28,28 @@ export default function Login(){
     return (
         <>
             <div className='container'>
-                <div>Logo here</div>
+            <div className="row" style={{height:"100vh"}}>
+                <div className="col-md-5 offset-md-3 col-xs-12 align-self-center">
+                <form style={{backgroundColor:"gray",padding:"20px"}}>
+                    
+                <div className="mb-3">
+                <div className='text-danger text-center' ref={msgRef}></div>
+                    <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
+                    <input type="text" className='form-control' ref={emailRef} />
+                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                    <input type="password" className='form-control' ref={passwordRef}></input>
+                </div>
+                <div className="mb-3">
+                    New to page? <Link to={'/signup'}>Sign up</Link> now.
+                </div>
+                <input type="button" style={{width:"100%"}} className='btn btn-danger' value="Sign In" onClick={signInClicked}></input>
+            </form>
+                </div>
+            </div>
+                {/* <div>Logo here</div>
                 <div ref={msgRef}></div>
                 <div>Sign In</div>
                 <div>
@@ -44,7 +65,7 @@ export default function Login(){
                 </div>
                 <div>
                     New to page? <Link to={'/signup'}>Sign up</Link> now.
-                </div>
+                </div> */}
             </div>            
         </>
     );
