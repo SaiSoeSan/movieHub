@@ -131,7 +131,7 @@ const MovieList = (props) => {
     <div>
       <Link to={`/movie/${movie._id}`}>
         {/* <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName} style={{height:'220px'}} /> */}
-        <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName}/>
+        <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName} className="img-responsive" width="100%"/>
         <h6 className="movieTitle text-center">{movie.mainMovieName}</h6>
       </Link>
     </div>
@@ -140,11 +140,29 @@ const MovieList = (props) => {
   return (
     <div>
       <h5 className="mt-4 mb-4">{props.title ? props.title : 'Exciting Movies'}</h5>
-      <Slider {...settings}>
-        {props.movies.map(movie => (
-          <MovieItem key={movie._id} movie={movie} />
-        ))}
-      </Slider>
+      {
+        <div className="row">
+          {
+            props.movies.length < 4 && (
+              props.movies.map(movie => (
+                <div className="col-md-3" key={movie._id}>
+                  <MovieItem key={movie._id} movie={movie} />
+                </div>
+              ))
+            )
+          }
+        </div>
+      }
+      {
+        props.movies.length >= 4 && (
+          <Slider {...settings}>
+            {props.movies.map(movie => (
+              <MovieItem key={movie._id} movie={movie} />
+            ))}
+          </Slider>
+        )
+      }
+      
     </div>
   );
 };

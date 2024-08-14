@@ -21,7 +21,6 @@ export const GlobalProvider = ({ children }) => {
           const moviesData = await moviesResponse.json();
           setGenres(genresData);
           setMovies(moviesData);
-          console.log(moviesData);
           setLoading(false);
         } catch (error) {
           console.error('Failed to fetch data:', error);

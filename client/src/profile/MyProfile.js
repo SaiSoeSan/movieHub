@@ -132,10 +132,7 @@ function MyProfile() {
                     Favourite Movies List
                 </div> */}
                 <hr />
-                <div>
-                    {/* <MovieList title='Favourite Movie List' /> */}
-                        <MovieList movies={favorite} title='My Favorite Movies' />
-                </div>
+                <MovieList movies={favorite} title='My Favorite Movies' />
                 {/* <div className='text-center h3'>
                     Watching Movies List
                 </div> */}
