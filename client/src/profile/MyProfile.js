@@ -99,10 +99,11 @@ function MyProfile() {
                         {
                             editPassword ?
                                 <div className='row'>
-                                    <div className="col-6">
+                                    <div className='col-4'></div>
+                                    <div className="col-4">
                                         <input type="password" className="form-control" id="inputPassword2" defaultValue={userData.password} ref={updatePassword} />
                                     </div>
-                                    <div className="col-3">
+                                    <div className="col-2">
                                         <button type="submit" className="btn btn-primary mb-3 " onClick={editPasswordButton}>Confirm</button>
                                     </div>
                                 </div>
