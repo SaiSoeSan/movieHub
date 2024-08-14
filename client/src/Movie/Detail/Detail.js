@@ -165,7 +165,7 @@ export default function Detail() {
                 </div>
                 <div>{/* 2nd col */}</div>
                 <div style={{marginTop:'150px'}}></div>
-            </div>
+                    </div>
             <div style={{ color: 'white', padding: '50px' }}>
                 <div style={{ fontSize: '26px', marginTop: '30px', marginBottom: '10px' }}>More Details</div>
                 <div className='gridcolumn'>
