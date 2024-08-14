@@ -2,6 +2,11 @@ import { React, useRef } from "react";
 import * as signupService from "./SignupService";
 import { useNavigate,Link } from "react-router-dom";
 
+const emailFormat = '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+
+
+
+
 export default function Signup() {
   const navigate = useNavigate();
   const emailRef = useRef();
@@ -10,7 +15,12 @@ export default function Signup() {
   const nameRef = useRef();
   const msgRef = useRef("");
 
-  const signupClicked = async () => {
+  const signupClicked = async (event) => {
+
+    event.preventDefault();
+
+    if(!event.target.reportValidity()) return;
+
     let result = await signupService.signup(
       emailRef.current.value,
       passwordRef.current.value,
@@ -24,9 +34,23 @@ export default function Signup() {
     }
   };
 
+
+
+  function checkPasswordMatch() {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      document.getElementById('confirmPassword').setCustomValidity('Passwords do not match');
+    } else {
+      document.getElementById('confirmPassword').setCustomValidity('');
+    }
+  }
+
+
+
   return (
     <>
-      {/* <div>
+            {/* <div>
                 <div>
                     <label>Name</label>
                     <input type='text' ref={nameRef} required={true}></input>
@@ -45,17 +69,34 @@ export default function Signup() {
                     <div ref={msgRef}></div>
                 </div>
             </div> */}
+
+
+
       <div className="container">
         <div className="row" style={{ height: "100vh" }}>
           <div className="col-md-5 offset-md-3 col-xs-12 align-self-center">
-            <form style={{ backgroundColor: "gray", padding: "20px" }}>
-              <div className="mb-3">
+            <form style={{ backgroundColor: "gray", padding: "20px" }} onSubmit={signupClicked} noValidate>
+
+            <div className="mb-3">
                 <div className="text-danger text-center" ref={msgRef}></div>
+                <label htmlFor="name" className="form-label">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  ref={nameRef}
+                  className="form-control"
+                  required={true}
+                ></input>
+              </div>
+
+              <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">
                   Email address
                 </label>
                 <input
-                  type="text"
+                  type="email"
+                  pattern={emailFormat}
                   ref={emailRef}
                   className="form-control"
                   required={true}
@@ -66,6 +107,7 @@ export default function Signup() {
                   Password
                 </label>
                 <input
+                id='password'
                   type="password"
                   className="form-control"
                   ref={passwordRef}
@@ -77,20 +119,22 @@ export default function Signup() {
                   Confirm Password
                 </label>
                 <input
+                id='confirmPassword'
                 className="form-control"
                   type="password"
                   ref={confirmPasswordRef}
+                  onInput={checkPasswordMatch}
                   required={true}
                 ></input>
               </div>
-              <div className="mb-3">
-                    Already have an account? <Link to={'/login'}>Sign In</Link> now.
-                </div>
-              <button style={{width:"100%"}} className='btn btn-danger' onClick={signupClicked}>Signup</button>
+              <button style={{width:"100%"}} className='btn btn-danger'>Signup</button>
             </form>
           </div>
         </div>
       </div>
+
+
+
     </>
   );
 }
