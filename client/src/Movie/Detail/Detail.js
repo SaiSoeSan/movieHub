@@ -38,7 +38,7 @@ export default function Detail() {
     const [isFavorite, setIsFavorite] = useState(false)
     const [id,setRefresh] = useState(false);
 
-    const backgroundImage = movie ? `../../images/back${movie.movieId}.jpg` : null;
+    const backgroundImage = movie ? `../../images/back${movie.movieId}.jpg` : null
 
     useEffect(() => {
         try {
