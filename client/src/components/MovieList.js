@@ -128,7 +128,6 @@ const MovieList = (props) => {
   },[]);
 
   const handleNavigate = (_id) => {
-    console.log("new id", _id);
     window.location.href = `/movie/${_id}`;
   };
 
@@ -153,11 +152,29 @@ const MovieList = (props) => {
   return (
     <div>
       <h5 className="mt-4 mb-4">{props.title ? props.title : 'Exciting Movies'}</h5>
-      <Slider {...settings}>
-        {props.movies.map(movie => (
-          <MovieItem key={movie._id} movie={movie} />
-        ))}
-      </Slider>
+      {
+        <div className="row">
+          {
+            props.movies.length < 4 && (
+              props.movies.map(movie => (
+                <div className="col-md-3" key={movie._id}>
+                  <MovieItem key={movie._id} movie={movie} />
+                </div>
+              ))
+            )
+          }
+        </div>
+      }
+      {
+        props.movies.length >= 4 && (
+          <Slider {...settings}>
+            {props.movies.map(movie => (
+              <MovieItem key={movie._id} movie={movie} />
+            ))}
+          </Slider>
+        )
+      }
+      
     </div>
   );
 };
