@@ -109,7 +109,8 @@ function MyProfile() {
                                 </div>
                                 :
                                 <div>
-                                    {userData.password}
+                                    {/* {'*'.repeat(userData.password.length)} */}
+                                    *****
                                     <button type='button' className='btn btn-primary ms-2'
                                         onClick={() => setEditPassword(true)}>Edit</button>
                                 </div>
