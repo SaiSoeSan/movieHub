@@ -108,6 +108,19 @@ async function getFavorite() {
     }
 }
 
+async function getMoviesByGenre(genre) {
+    try {
+
+        let genresList = genre.split(',');
+        let query = { genres: { $in: genresList } };
+        let movies = await dbProvider.dbChain().defineTable('movies').getMultiData(query);
+        return await movies.toArray();
+    } catch (err) {
+        console.error("Error fetching movies by genre:", err);
+        return [];
+    }
+}
+
 module.exports = {
     getAllMovies: getAllMovies,
     getMoviesCount: getMoviesCount,
@@ -115,5 +128,6 @@ module.exports = {
     addFavoriteByEmailAndMovieId: addFavoriteByEmailAndMovieId,
     isFavorite: isFavorite,
     removeFavoriteByEmailAndMovieID: removeFavoriteByEmailAndMovieID,
-    getFavorite: getFavorite
+    getFavorite: getFavorite,
+    getMoviesByGenre: getMoviesByGenre
 }

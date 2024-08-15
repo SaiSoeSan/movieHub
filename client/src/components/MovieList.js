@@ -127,15 +127,27 @@ const MovieList = (props) => {
     fetchmovices();
   },[]);
 
-  const MovieItem = ({ movie }) => (
-    <div>
-      <Link to={`/movie/${movie._id}`}>
-        {/* <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName} style={{height:'220px'}} /> */}
-        <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName} className="img-responsive" width="100%"/>
-        <h6 className="movieTitle text-center">{movie.mainMovieName}</h6>
-      </Link>
+  const handleNavigate = (_id) => {
+    window.location.href = `/movie/${_id}`;
+  };
+
+  const MovieItem = ({movie}) => (
+    <div key={movie._id} onClick={() => handleNavigate(movie._id)} style={{ cursor: 'pointer' }}>
+      <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName} style={{height: '200px'}} />
+      <h6 className="movieTitle text-center">{movie.mainMovieName}</h6>
     </div>
   );
+
+
+  // const MovieItem = ({ movie }) => (
+  //   <div>
+  //     <Link to={`/movie/${movie._id}`}>
+  //       {/* <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName} style={{height:'220px'}} /> */}
+  //       <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName}/>
+  //       <h6 className="movieTitle text-center">{movie.mainMovieName}</h6>
+  //     </Link>
+  //   </div>
+  // );
 
   return (
     <div>

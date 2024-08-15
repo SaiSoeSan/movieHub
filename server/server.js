@@ -64,7 +64,7 @@ app.post('/signup', (req, res) => {
 app.get('/api/allmovies', async (req, res) => {
   // const database = client.db('mflix');
   // const movies = database.collection('movies');
-  // const total = await movies.countDocuments(); // 获取总电影数
+  // const total = await movies.countDocuments(); 
 
   // res.json(total);
 
@@ -129,6 +129,17 @@ app.get('/api/movie/detail/:_id', async (req, res) => {
       res.send(response)
     });
 
+});
+
+app.get('/api/movies/genre/:genre', async (req, res) => {
+  const genre = req.params.genre;
+ 
+  const movies = await movie.getMoviesByGenre(genre);
+  if (movies.length > 0) {
+      res.json(movies);
+  } else {
+      res.status(404).send({ message: 'No movies found for this genre' });
+  }
 });
 
 //profile

@@ -36,15 +36,16 @@ export default function Detail() {
         movieId: ''
     });
     const [isFavorite, setIsFavorite] = useState(false)
+    const [id,setRefresh] = useState(false);
 
-    const backgroundImage = movie ? `../../images/back${movie.movieId}.jpg` : null;
+    const backgroundImage = movie ? `../../images/back${movie.movieId}.jpg` : null
 
     useEffect(() => {
         try {
             const fetchdata = async () => {
                 const response = await fetch(`http://localhost:8000/api/movie/detail/${_id}`);
                 const result = await response.json();
-                console.log(result);
+                //console.log(result);
                 setMovie(result);
             }
             const fetchFavorite = async () => {
@@ -59,7 +60,9 @@ export default function Detail() {
                 setIsFavorite(result)
             }
             fetchdata();
+            // fetchdata().then(window.scrollTo(0,0));
             fetchFavorite();
+
         } catch (error) {
             console.log(error);
         }
@@ -116,6 +119,69 @@ export default function Detail() {
         const result = await response.json();
         setIsFavorite(false);
     }
+
+    const [showList, setshowList] = useState([{}]);
+
+
+    const handleNavigate = (_id) => {
+        console.log("new id", _id);
+        window.location.href = `/movie/${_id}`;
+    };
+
+    useEffect(() => {
+        try {
+            const fetchdata = async () => {
+                console.log(movie.genres);
+                const response = await fetch(`http://localhost:8000/api/movies/genre/${movie.genres}`);
+                const result = await response.json();
+                console.log(result);
+
+                setshowList(result.filter((film)=>film.movieId != movie.movieId));
+            }
+            if(movie.genres.length == 0){
+                return;
+            }
+            fetchdata();
+        } catch (error) {
+            console.log(error);
+        }
+    }, [movie]);
+
+    const [displayCount, setDisplayCount] = useState(4);
+    const handleMoreClick = () => {
+        setDisplayCount(prev => prev + 4); 
+    };
+
+        // Styled More Button component
+        const StyledMoreButton = ({ onClick }) => (
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                width: '100%',
+                marginTop: '20px'
+            }}>
+                <button
+                    onClick={onClick}
+                    style={{
+                        backgroundColor: '#333',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '20px',
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.3s',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                        width: '200px'  // Fixed width
+                    }}
+                    onMouseEnter={(e) => e.target.style.backgroundColor = '#444'}
+                    onMouseLeave={(e) => e.target.style.backgroundColor = '#333'}
+                >
+                    More ▼
+                </button>
+            </div>
+        );
 
 
     return (
@@ -190,6 +256,20 @@ export default function Detail() {
                 <div className='gridcolumn'>
                     {movie.cast.map((actor) => (<div>{actor}</div>))}
                 </div>
+                <div style={{marginTop:'200px', fontSize:'30px'}}>More Like This</div>
+                <div className='gridcolumn' style={{gap:'10px'}}>
+                {showList.slice(0, displayCount).map(movie => (
+                    // <div onClick={handleNavigate} style={{ cursor: 'pointer' }}>
+                    // <div onClick={() => handleNavigate(movie._id)} style={{ cursor: 'pointer' }}>
+                    <div key={movie._id} onClick={() => handleNavigate(movie._id)} style={{ cursor: 'pointer' }}>
+                        <img src={`../../images/movie${movie.movieId}.jpg`} alt={movie.mainMovieName} style={{height: '180px'}} />
+                        <h6 className="movieTitle text-center">{movie.mainMovieName}</h6>
+                    </div>
+                ))}
+                 {/* <button onClick={handleMoreClick} style={{ marginTop: '20px' }}>More</button> */}
+                </div>
+                {displayCount < showList.length && <StyledMoreButton onClick={handleMoreClick} />}
+                
             </div>
 
 
