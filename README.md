@@ -1,4 +1,4 @@
-# Movie Hub
+# MyFlix
 
 Movie Hub is a web application that allows users to browse, search, and view information about movies. It features a React-based frontend and an Express.js backend.
 
