@@ -51,7 +51,7 @@ Movie Hub is a web application that allows users to browse, search, and view inf
    cd frontend
    npm start
    cd ../backend
-   npm start
+   node server.js
    ```
 
 5. Open your browser and navigate to `http://localhost:3000` for the front end.
